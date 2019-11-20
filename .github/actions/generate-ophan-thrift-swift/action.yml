@@ -1,0 +1,4 @@
+name: 'Docker with Thrift 0.14'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
