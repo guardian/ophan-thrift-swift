@@ -2,6 +2,9 @@ FROM ubuntu:18.04
 
 ENV THRIFT_VERSION v0.14.0-gu1
 
+RUN apt-get update
+RUN apt-get install -y git
+
 RUN buildDeps=" \
 		automake \
 		bison \
@@ -19,7 +22,7 @@ RUN buildDeps=" \
 		make \
 		pkg-config \
 	"; \
-	apt-get update && apt-get install -y --no-install-recommends $buildDeps && rm -rf /var/lib/apt/lists/* \
+	apt-get install -y --no-install-recommends $buildDeps && rm -rf /var/lib/apt/lists/* \
 	&& curl -k -sSL "https://github.com/davidfurey/thrift/archive/${THRIFT_VERSION}.tar.gz" -o thrift.tar.gz \
 	&& mkdir -p /usr/src/thrift \
 	&& tar zxf thrift.tar.gz -C /usr/src/thrift --strip-components=1 \
