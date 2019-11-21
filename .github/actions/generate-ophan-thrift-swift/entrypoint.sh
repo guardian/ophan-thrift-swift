@@ -40,9 +40,3 @@ git tag $NEW_FULL_VERSION
 # Push the changes (and tags)
 git push -u origin update-models #TODO delete after testing - use master
 git push --tags
-
-
-
-
-
-
