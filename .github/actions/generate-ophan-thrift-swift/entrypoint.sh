@@ -1,15 +1,13 @@
-#!/bin/sh -l
+#!/bin/sh -e
 
 # Describe dependencies (for debugging Docker)
 git --version
 thrift --version
 
 # Git setup
-git config --global credential.helper store
-# Store the personal access token (which is passed to this script via our GitHub Action) in .git-credentials
-echo "https://$1:x-oauth-basic@github.com" > ~/.git-credentials
-git config --global user.name "GuardianAndroid"
-git config --global user.email "GuardianAndroid"
+export ACCESS_TOKEN=$1
+git config --global credential.helper "/bin/bash /credential-helper.sh"
+git config --global user.email '<>'
 
 # Clone repos
 git clone https://github.com/guardian/ophan.git
@@ -17,6 +15,9 @@ git clone https://github.com/guardian/ophan-thrift-swift.git
 
 # Generate Swift Files (these will be output into gen-swift folder)
 thrift --gen swift -r ophan/event-model/src/main/thrift/nativeapp.thrift
+
+mkdir -p ophan-thrift-swift/Sources/OphanThrift # TODO delete after testing
+touch ophan-thrift-swift/Sources/OphanThrift/Test.swift # TODO delete after testing
 
 # Replace old .swift files with new .swift files
 rm ophan-thrift-swift/Sources/OphanThrift/*.swift

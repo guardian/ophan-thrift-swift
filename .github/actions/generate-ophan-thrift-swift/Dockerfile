@@ -41,4 +41,5 @@ RUN buildDeps=" \
 	&& rm -rf /var/tmp/*
 
 COPY entrypoint.sh /entrypoint.sh
+COPY credential-helper.sh /credential-helper.sh
 ENTRYPOINT ["/entrypoint.sh"]
