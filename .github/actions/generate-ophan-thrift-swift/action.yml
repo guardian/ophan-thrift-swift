@@ -1,4 +1,13 @@
 name: 'Docker with Thrift 0.14'
+inputs:
+  # Configure a personal access token as a secret (in your repo) and pass it to this action
+  # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets#using-encrypted-secrets-in-a-workflow'
+  personal-access-token:
+    description: 'Personal access token used to interact with ophan and ophan-thrift-swift repos'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.personal-access-token }}
+
