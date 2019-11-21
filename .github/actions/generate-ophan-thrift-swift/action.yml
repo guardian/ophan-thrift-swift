@@ -1,4 +1,5 @@
-name: 'Docker with Thrift 0.14'
+name: 'Update ophan-thrift-swift'
+description: 'Automatically generates Swift Thrift classes (for Ophan tracking) in the iOS Live App'
 inputs:
   # Configure a personal access token as a secret (in your repo) and pass it to this action
   # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets#using-encrypted-secrets-in-a-workflow'
