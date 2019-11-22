@@ -16,16 +16,12 @@ git clone https://github.com/guardian/ophan-thrift-swift.git
 # Generate Swift Files (these will be output into gen-swift folder)
 thrift --gen swift -r ophan/event-model/src/main/thrift/nativeapp.thrift
 
-mkdir -p ophan-thrift-swift/Sources/OphanThrift # TODO delete after testing
-touch ophan-thrift-swift/Sources/OphanThrift/Test.swift # TODO delete after testing
-
 # Replace old .swift files with new .swift files
 rm ophan-thrift-swift/Sources/OphanThrift/*.swift
 cp gen-swift/* ophan-thrift-swift/Sources/OphanThrift
 
 # Commit changes
 cd ophan-thrift-swift
-git checkout -b update-models #TODO delete after testing - use master
 git add Sources/OphanThrift/*.swift
 git commit -m "Update Swift models"
 
@@ -39,5 +35,5 @@ echo "New full version is $NEW_FULL_VERSION"
 git tag $NEW_FULL_VERSION
 
 # Push the changes (and tags)
-git push -u origin update-models #TODO delete after testing - use master
+git push -u origin master
 git push --tags
