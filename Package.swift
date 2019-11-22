@@ -22,8 +22,5 @@ let package = Package(
         .target(
             name: "OphanThrift",
             dependencies: ["Thrift"]),
-        .testTarget(
-            name: "OphanThriftTests",
-            dependencies: ["OphanThrift"]),
     ]
 )
