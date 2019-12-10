@@ -301,7 +301,7 @@ public final class Device {
 }
 
 /// This is the root object that represents a tracking submission from native apps.
-/// This can be supplied to ophan in one of two ways:
+/// This can be supplied to Ophan in one of two ways:
 /// <ol>
 ///   <li>Create the equivalent json and POST the json to https://ophan.theguardian.com/mob with a content type
 ///   of application/json</li>
