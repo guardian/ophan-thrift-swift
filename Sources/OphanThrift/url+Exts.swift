@@ -37,16 +37,13 @@ extension Url : CustomStringConvertible {
 
 extension Url : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (raw.hashValue)
-    result = prime &* result &+ (host.hashValue)
-    result = prime &* result &+ (domain.hashValue)
-    result = prime &* result &+ (path.hashValue)
-    result = prime &* result &+ (site?.hashValue ?? 0)
-    result = prime &* result &+ (synthesised?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(raw)
+    hasher.combine(host)
+    hasher.combine(domain)
+    hasher.combine(path)
+    hasher.combine(site)
+    hasher.combine(synthesised)
   }
 
 }

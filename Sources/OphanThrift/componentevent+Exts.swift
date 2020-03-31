@@ -35,15 +35,12 @@ extension ComponentV2 : CustomStringConvertible {
 
 extension ComponentV2 : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (componentType.hashValue)
-    result = prime &* result &+ (id?.hashValue ?? 0)
-    result = prime &* result &+ (products.hashValue)
-    result = prime &* result &+ (campaignCode?.hashValue ?? 0)
-    result = prime &* result &+ (labels.hashValue)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(componentType)
+    hasher.combine(id)
+    hasher.combine(products)
+    hasher.combine(campaignCode)
+    hasher.combine(labels)
   }
 
 }
@@ -119,15 +116,12 @@ extension ComponentEvent : CustomStringConvertible {
 
 extension ComponentEvent : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (component.hashValue)
-    result = prime &* result &+ (action.hashValue)
-    result = prime &* result &+ (value?.hashValue ?? 0)
-    result = prime &* result &+ (id?.hashValue ?? 0)
-    result = prime &* result &+ (abTest?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(component)
+    hasher.combine(action)
+    hasher.combine(value)
+    hasher.combine(id)
+    hasher.combine(abTest)
   }
 
 }

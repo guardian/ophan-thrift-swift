@@ -31,13 +31,10 @@ extension GoogleReferral : CustomStringConvertible {
 
 extension GoogleReferral : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (q?.hashValue ?? 0)
-    result = prime &* result &+ (rank?.hashValue ?? 0)
-    result = prime &* result &+ (source?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(q)
+    hasher.combine(rank)
+    hasher.combine(source)
   }
 
 }

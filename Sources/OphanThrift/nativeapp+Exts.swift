@@ -31,13 +31,10 @@ extension ScrollDepth : CustomStringConvertible {
 
 extension ScrollDepth : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (maxExtent.hashValue)
-    result = prime &* result &+ (numberOfContainers?.hashValue ?? 0)
-    result = prime &* result &+ (numberOfContainersViewed?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(maxExtent)
+    hasher.combine(numberOfContainers)
+    hasher.combine(numberOfContainersViewed)
   }
 
 }
@@ -141,32 +138,29 @@ extension Event : CustomStringConvertible {
 
 extension Event : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (eventType?.hashValue ?? 0)
-    result = prime &* result &+ (eventId.hashValue)
-    result = prime &* result &+ (viewId?.hashValue ?? 0)
-    result = prime &* result &+ (ageMsLong?.hashValue ?? 0)
-    result = prime &* result &+ (ageMs?.hashValue ?? 0)
-    result = prime &* result &+ (path?.hashValue ?? 0)
-    result = prime &* result &+ (previousPath?.hashValue ?? 0)
-    result = prime &* result &+ (referringSource?.hashValue ?? 0)
-    result = prime &* result &+ (pushNotificationId?.hashValue ?? 0)
-    result = prime &* result &+ (adLoad?.hashValue ?? 0)
-    result = prime &* result &+ (benchmark?.hashValue ?? 0)
-    result = prime &* result &+ (networkOperation?.hashValue ?? 0)
-    result = prime &* result &+ (attentionMs?.hashValue ?? 0)
-    result = prime &* result &+ (scrollDepth?.hashValue ?? 0)
-    result = prime &* result &+ (media?.hashValue ?? 0)
-    result = prime &* result &+ (ab?.hashValue ?? 0)
-    result = prime &* result &+ (interaction?.hashValue ?? 0)
-    result = prime &* result &+ (referrer?.hashValue ?? 0)
-    result = prime &* result &+ (url?.hashValue ?? 0)
-    result = prime &* result &+ (renderedComponents?.hashValue ?? 0)
-    result = prime &* result &+ (componentEvent?.hashValue ?? 0)
-    result = prime &* result &+ (acquisition?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(eventType)
+    hasher.combine(eventId)
+    hasher.combine(viewId)
+    hasher.combine(ageMsLong)
+    hasher.combine(ageMs)
+    hasher.combine(path)
+    hasher.combine(previousPath)
+    hasher.combine(referringSource)
+    hasher.combine(pushNotificationId)
+    hasher.combine(adLoad)
+    hasher.combine(benchmark)
+    hasher.combine(networkOperation)
+    hasher.combine(attentionMs)
+    hasher.combine(scrollDepth)
+    hasher.combine(media)
+    hasher.combine(ab)
+    hasher.combine(interaction)
+    hasher.combine(referrer)
+    hasher.combine(url)
+    hasher.combine(renderedComponents)
+    hasher.combine(componentEvent)
+    hasher.combine(acquisition)
   }
 
 }
@@ -274,15 +268,12 @@ extension App : CustomStringConvertible {
 
 extension App : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (version?.hashValue ?? 0)
-    result = prime &* result &+ (family?.hashValue ?? 0)
-    result = prime &* result &+ (os?.hashValue ?? 0)
-    result = prime &* result &+ (edition?.hashValue ?? 0)
-    result = prime &* result &+ (platform?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(version)
+    hasher.combine(family)
+    hasher.combine(os)
+    hasher.combine(edition)
+    hasher.combine(platform)
   }
 
 }
@@ -350,13 +341,10 @@ extension Device : CustomStringConvertible {
 
 extension Device : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (name?.hashValue ?? 0)
-    result = prime &* result &+ (manufacturer?.hashValue ?? 0)
-    result = prime &* result &+ (deviceClass?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+    hasher.combine(manufacturer)
+    hasher.combine(deviceClass)
   }
 
 }
@@ -430,18 +418,15 @@ extension NativeAppSubmission : CustomStringConvertible {
 
 extension NativeAppSubmission : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (app.hashValue)
-    result = prime &* result &+ (device?.hashValue ?? 0)
-    result = prime &* result &+ (deviceId.hashValue)
-    result = prime &* result &+ (userId?.hashValue ?? 0)
-    result = prime &* result &+ (kruxId?.hashValue ?? 0)
-    result = prime &* result &+ (subscriptionId?.hashValue ?? 0)
-    result = prime &* result &+ (events.hashValue)
-    result = prime &* result &+ (membershipTier?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(app)
+    hasher.combine(device)
+    hasher.combine(deviceId)
+    hasher.combine(userId)
+    hasher.combine(kruxId)
+    hasher.combine(subscriptionId)
+    hasher.combine(events)
+    hasher.combine(membershipTier)
   }
 
 }

@@ -31,13 +31,10 @@ extension Interaction : CustomStringConvertible {
 
 extension Interaction : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (component.hashValue)
-    result = prime &* result &+ (value?.hashValue ?? 0)
-    result = prime &* result &+ (atomId?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(component)
+    hasher.combine(value)
+    hasher.combine(atomId)
   }
 
 }

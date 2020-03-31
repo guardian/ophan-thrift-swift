@@ -33,14 +33,11 @@ extension MediaPlayback : CustomStringConvertible {
 
 extension MediaPlayback : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (mediaId.hashValue)
-    result = prime &* result &+ (mediaType.hashValue)
-    result = prime &* result &+ (preroll.hashValue)
-    result = prime &* result &+ (eventType.hashValue)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(mediaId)
+    hasher.combine(mediaType)
+    hasher.combine(preroll)
+    hasher.combine(eventType)
   }
 
 }

@@ -33,14 +33,11 @@ extension NetworkOperationData : CustomStringConvertible {
 
 extension NetworkOperationData : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (requestType.hashValue)
-    result = prime &* result &+ (measuredTimeMs.hashValue)
-    result = prime &* result &+ (connectionType?.hashValue ?? 0)
-    result = prime &* result &+ (success.hashValue)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(requestType)
+    hasher.combine(measuredTimeMs)
+    hasher.combine(connectionType)
+    hasher.combine(success)
   }
 
 }
@@ -108,12 +105,9 @@ extension BenchmarkData : CustomStringConvertible {
 
 extension BenchmarkData : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (type.hashValue)
-    result = prime &* result &+ (measuredTimeMs.hashValue)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(type)
+    hasher.combine(measuredTimeMs)
   }
 
 }

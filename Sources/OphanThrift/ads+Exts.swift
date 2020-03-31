@@ -39,17 +39,14 @@ extension RenderedAd : CustomStringConvertible {
 
 extension RenderedAd : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (slot.hashValue)
-    result = prime &* result &+ (lineItemId?.hashValue ?? 0)
-    result = prime &* result &+ (creativeId?.hashValue ?? 0)
-    result = prime &* result &+ (timeToRenderEndedMs?.hashValue ?? 0)
-    result = prime &* result &+ (timeToAdRequestMs?.hashValue ?? 0)
-    result = prime &* result &+ (adRetrievalTimeMs?.hashValue ?? 0)
-    result = prime &* result &+ (adRenderTimeMs?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(slot)
+    hasher.combine(lineItemId)
+    hasher.combine(creativeId)
+    hasher.combine(timeToRenderEndedMs)
+    hasher.combine(timeToAdRequestMs)
+    hasher.combine(adRetrievalTimeMs)
+    hasher.combine(adRenderTimeMs)
   }
 
 }

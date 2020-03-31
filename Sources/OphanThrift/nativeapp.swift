@@ -332,6 +332,7 @@ public final class NativeAppSubmission {
   /// The interaction events contained within this submission.
   public var events: TList<Event>
 
+  /// DEPRECATED - Apps no longer use Krux
   /// The krux identifer for this user.
   public var kruxId: String?
 

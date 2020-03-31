@@ -43,19 +43,16 @@ extension Referrer : CustomStringConvertible {
 
 extension Referrer : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (url?.hashValue ?? 0)
-    result = prime &* result &+ (component?.hashValue ?? 0)
-    result = prime &* result &+ (linkName?.hashValue ?? 0)
-    result = prime &* result &+ (platform?.hashValue ?? 0)
-    result = prime &* result &+ (viewId?.hashValue ?? 0)
-    result = prime &* result &+ (email?.hashValue ?? 0)
-    result = prime &* result &+ (nativeAppSource?.hashValue ?? 0)
-    result = prime &* result &+ (google?.hashValue ?? 0)
-    result = prime &* result &+ (tagIdFollowed?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(url)
+    hasher.combine(component)
+    hasher.combine(linkName)
+    hasher.combine(platform)
+    hasher.combine(viewId)
+    hasher.combine(email)
+    hasher.combine(nativeAppSource)
+    hasher.combine(google)
+    hasher.combine(tagIdFollowed)
   }
 
 }

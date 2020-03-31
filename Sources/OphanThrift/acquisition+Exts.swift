@@ -67,31 +67,28 @@ extension Acquisition : CustomStringConvertible {
 
 extension Acquisition : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (product.hashValue)
-    result = prime &* result &+ (paymentFrequency.hashValue)
-    result = prime &* result &+ (currency.hashValue)
-    result = prime &* result &+ (amount.hashValue)
-    result = prime &* result &+ (paymentProvider?.hashValue ?? 0)
-    result = prime &* result &+ (campaignCode?.hashValue ?? 0)
-    result = prime &* result &+ (abTests?.hashValue ?? 0)
-    result = prime &* result &+ (countryCode?.hashValue ?? 0)
-    result = prime &* result &+ (referrerPageViewId?.hashValue ?? 0)
-    result = prime &* result &+ (referrerUrl?.hashValue ?? 0)
-    result = prime &* result &+ (componentId?.hashValue ?? 0)
-    result = prime &* result &+ (componentTypeV2?.hashValue ?? 0)
-    result = prime &* result &+ (source?.hashValue ?? 0)
-    result = prime &* result &+ (printOptions?.hashValue ?? 0)
-    result = prime &* result &+ (platform?.hashValue ?? 0)
-    result = prime &* result &+ (discountLengthInMonths?.hashValue ?? 0)
-    result = prime &* result &+ (discountPercentage?.hashValue ?? 0)
-    result = prime &* result &+ (promoCode?.hashValue ?? 0)
-    result = prime &* result &+ (labels?.hashValue ?? 0)
-    result = prime &* result &+ (identityId?.hashValue ?? 0)
-    result = prime &* result &+ (queryParameters?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(product)
+    hasher.combine(paymentFrequency)
+    hasher.combine(currency)
+    hasher.combine(amount)
+    hasher.combine(paymentProvider)
+    hasher.combine(campaignCode)
+    hasher.combine(abTests)
+    hasher.combine(countryCode)
+    hasher.combine(referrerPageViewId)
+    hasher.combine(referrerUrl)
+    hasher.combine(componentId)
+    hasher.combine(componentTypeV2)
+    hasher.combine(source)
+    hasher.combine(printOptions)
+    hasher.combine(platform)
+    hasher.combine(discountLengthInMonths)
+    hasher.combine(discountPercentage)
+    hasher.combine(promoCode)
+    hasher.combine(labels)
+    hasher.combine(identityId)
+    hasher.combine(queryParameters)
   }
 
 }

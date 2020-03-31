@@ -29,12 +29,9 @@ extension QueryParameter : CustomStringConvertible {
 
 extension QueryParameter : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (name.hashValue)
-    result = prime &* result &+ (value.hashValue)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+    hasher.combine(value)
   }
 
 }

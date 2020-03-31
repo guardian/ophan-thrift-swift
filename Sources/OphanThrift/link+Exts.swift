@@ -27,11 +27,8 @@ extension LinkName : CustomStringConvertible {
 
 extension LinkName : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (raw?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(raw)
   }
 
 }

@@ -29,12 +29,9 @@ extension PrintOptions : CustomStringConvertible {
 
 extension PrintOptions : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (product.hashValue)
-    result = prime &* result &+ (deliveryCountryCode.hashValue)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(product)
+    hasher.combine(deliveryCountryCode)
   }
 
 }

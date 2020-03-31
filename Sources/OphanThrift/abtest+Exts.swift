@@ -33,14 +33,11 @@ extension AbTest : CustomStringConvertible {
 
 extension AbTest : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (name.hashValue)
-    result = prime &* result &+ (variant.hashValue)
-    result = prime &* result &+ (complete?.hashValue ?? 0)
-    result = prime &* result &+ (campaignCodes?.hashValue ?? 0)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+    hasher.combine(variant)
+    hasher.combine(complete)
+    hasher.combine(campaignCodes)
   }
 
 }
@@ -105,11 +102,8 @@ extension AbTestInfo : CustomStringConvertible {
 
 extension AbTestInfo : Hashable {
 
-  public var hashValue : Int {
-    let prime = 31
-    var result = 1
-    result = prime &* result &+ (tests.hashValue)
-    return result
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(tests)
   }
 
 }
