@@ -117,6 +117,8 @@ public enum AcquisitionSource : TEnum {
   case direct
   case guardian_app_ios
   case guardian_app_android
+  case apple_news
+  case google_amp
 
   public static func read(from proto: TProtocol) throws -> AcquisitionSource {
     let raw: Int32 = try proto.read()
@@ -144,6 +146,8 @@ public enum AcquisitionSource : TEnum {
     case .direct: return 7
     case .guardian_app_ios: return 8
     case .guardian_app_android: return 9
+    case .apple_news: return 10
+    case .google_amp: return 11
     }
   }
 
@@ -158,6 +162,8 @@ public enum AcquisitionSource : TEnum {
     case 7: self = .direct
     case 8: self = .guardian_app_ios
     case 9: self = .guardian_app_android
+    case 10: self = .apple_news
+    case 11: self = .google_amp
     default: return nil
     }
   }
