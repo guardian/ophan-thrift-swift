@@ -14,7 +14,7 @@ let package = Package(
             targets: ["OphanThrift"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/guardian/thrift-swift.git", .upToNextMinor("0.14.0-gu6"))
+        .package(url: "https://github.com/guardian/thrift-swift.git", .upToNextMinor(from: "0.14.0-gu6"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
