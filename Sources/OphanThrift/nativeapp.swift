@@ -19,6 +19,7 @@ public enum EventType : TEnum {
   case ab_test
   case component_event
   case acquisition
+  case in_page_click
 
   public static func read(from proto: TProtocol) throws -> EventType {
     let raw: Int32 = try proto.read()
@@ -45,6 +46,7 @@ public enum EventType : TEnum {
     case .ab_test: return 5
     case .component_event: return 6
     case .acquisition: return 7
+    case .in_page_click: return 8
     }
   }
 
@@ -58,6 +60,7 @@ public enum EventType : TEnum {
     case 5: self = .ab_test
     case 6: self = .component_event
     case 7: self = .acquisition
+    case 8: self = .in_page_click
     default: return nil
     }
   }
@@ -221,12 +224,15 @@ public final class Event {
   /// If an event has just happened, set this value to 0.
   public var ageMsLong: Int64?
 
+  /// If populated, this event includes data about a click that did not result in a page transition
+  public var inPageClick: InPageClick?
+
 
   public init(eventId: String) {
     self.eventId = eventId
   }
 
-  public init(eventType: EventType?, eventId: String, viewId: String?, ageMsLong: Int64?, ageMs: Int32?, path: String?, previousPath: String?, referringSource: Source?, pushNotificationId: String?, adLoad: RenderedAd?, benchmark: BenchmarkData?, networkOperation: NetworkOperationData?, attentionMs: Int64?, scrollDepth: ScrollDepth?, media: MediaPlayback?, ab: AbTestInfo?, interaction: Interaction?, referrer: Referrer?, url: Url?, renderedComponents: TList<String>?, componentEvent: ComponentEvent?, acquisition: Acquisition?) {
+  public init(eventType: EventType?, eventId: String, viewId: String?, ageMsLong: Int64?, ageMs: Int32?, path: String?, previousPath: String?, referringSource: Source?, pushNotificationId: String?, adLoad: RenderedAd?, benchmark: BenchmarkData?, networkOperation: NetworkOperationData?, attentionMs: Int64?, scrollDepth: ScrollDepth?, media: MediaPlayback?, ab: AbTestInfo?, interaction: Interaction?, referrer: Referrer?, url: Url?, renderedComponents: TList<String>?, componentEvent: ComponentEvent?, acquisition: Acquisition?, inPageClick: InPageClick?) {
     self.eventType = eventType
     self.eventId = eventId
     self.viewId = viewId
@@ -249,6 +255,7 @@ public final class Event {
     self.renderedComponents = renderedComponents
     self.componentEvent = componentEvent
     self.acquisition = acquisition
+    self.inPageClick = inPageClick
   }
 
 }

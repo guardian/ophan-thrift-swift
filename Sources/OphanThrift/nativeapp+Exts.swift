@@ -102,7 +102,8 @@ public func ==(lhs: Event, rhs: Event) -> Bool {
     (lhs.url == rhs.url) &&
     (lhs.renderedComponents == rhs.renderedComponents) &&
     (lhs.componentEvent == rhs.componentEvent) &&
-    (lhs.acquisition == rhs.acquisition)
+    (lhs.acquisition == rhs.acquisition) &&
+    (lhs.inPageClick == rhs.inPageClick)
 }
 
 extension Event : CustomStringConvertible {
@@ -130,7 +131,8 @@ extension Event : CustomStringConvertible {
     desc += "url=\(String(describing: self.url)), "
     desc += "renderedComponents=\(String(describing: self.renderedComponents)), "
     desc += "componentEvent=\(String(describing: self.componentEvent)), "
-    desc += "acquisition=\(String(describing: self.acquisition))"
+    desc += "acquisition=\(String(describing: self.acquisition)), "
+    desc += "inPageClick=\(String(describing: self.inPageClick))"
     return desc
   }
 
@@ -161,6 +163,7 @@ extension Event : Hashable {
     hasher.combine(renderedComponents)
     hasher.combine(componentEvent)
     hasher.combine(acquisition)
+    hasher.combine(inPageClick)
   }
 
 }
@@ -168,7 +171,7 @@ extension Event : Hashable {
 extension Event : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["eventType": 3, "eventId": 1, "viewId": 9, "ageMsLong": 22, "ageMs": 2, "path": 4, "previousPath": 5, "referringSource": 6, "pushNotificationId": 7, "adLoad": 8, "benchmark": 10, "networkOperation": 11, "attentionMs": 12, "scrollDepth": 13, "media": 14, "ab": 15, "interaction": 16, "referrer": 17, "url": 18, "renderedComponents": 19, "componentEvent": 20, "acquisition": 21, ]
+    return ["eventType": 3, "eventId": 1, "viewId": 9, "ageMsLong": 22, "ageMs": 2, "path": 4, "previousPath": 5, "referringSource": 6, "pushNotificationId": 7, "adLoad": 8, "benchmark": 10, "networkOperation": 11, "attentionMs": 12, "scrollDepth": 13, "media": 14, "ab": 15, "interaction": 16, "referrer": 17, "url": 18, "renderedComponents": 19, "componentEvent": 20, "acquisition": 21, "inPageClick": 23, ]
   }
 
   public static var structName: String { return "Event" }
@@ -197,6 +200,7 @@ extension Event : TStruct {
     var renderedComponents: TList<String>?
     var componentEvent: ComponentEvent?
     var acquisition: Acquisition?
+    var inPageClick: InPageClick?
 
     fields: while true {
 
@@ -226,6 +230,7 @@ extension Event : TStruct {
         case (19, .list):            renderedComponents = try TList<String>.read(from: proto)
         case (20, .struct):           componentEvent = try ComponentEvent.read(from: proto)
         case (21, .struct):           acquisition = try Acquisition.read(from: proto)
+        case (23, .struct):           inPageClick = try InPageClick.read(from: proto)
         case let (_, unknownType):  try proto.skip(type: unknownType)
       }
 
@@ -236,7 +241,7 @@ extension Event : TStruct {
     // Required fields
     try proto.validateValue(eventId, named: "eventId")
 
-    return Event(eventType: eventType, eventId: eventId, viewId: viewId, ageMsLong: ageMsLong, ageMs: ageMs, path: path, previousPath: previousPath, referringSource: referringSource, pushNotificationId: pushNotificationId, adLoad: adLoad, benchmark: benchmark, networkOperation: networkOperation, attentionMs: attentionMs, scrollDepth: scrollDepth, media: media, ab: ab, interaction: interaction, referrer: referrer, url: url, renderedComponents: renderedComponents, componentEvent: componentEvent, acquisition: acquisition)
+    return Event(eventType: eventType, eventId: eventId, viewId: viewId, ageMsLong: ageMsLong, ageMs: ageMs, path: path, previousPath: previousPath, referringSource: referringSource, pushNotificationId: pushNotificationId, adLoad: adLoad, benchmark: benchmark, networkOperation: networkOperation, attentionMs: attentionMs, scrollDepth: scrollDepth, media: media, ab: ab, interaction: interaction, referrer: referrer, url: url, renderedComponents: renderedComponents, componentEvent: componentEvent, acquisition: acquisition, inPageClick: inPageClick)
   }
 
 }
