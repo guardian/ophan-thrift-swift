@@ -114,6 +114,7 @@ public enum ComponentType : TEnum {
   case acquisitions_subscriptions_banner
   case mobile_sticky_ad
   case identity_authentication
+  case retention_engagement_banner
 
   public static func read(from proto: TProtocol) throws -> ComponentType {
     let raw: Int32 = try proto.read()
@@ -173,6 +174,7 @@ public enum ComponentType : TEnum {
     case .acquisitions_subscriptions_banner: return 39
     case .mobile_sticky_ad: return 40
     case .identity_authentication: return 41
+    case .retention_engagement_banner: return 42
     }
   }
 
@@ -219,6 +221,7 @@ public enum ComponentType : TEnum {
     case 39: self = .acquisitions_subscriptions_banner
     case 40: self = .mobile_sticky_ad
     case 41: self = .identity_authentication
+    case 42: self = .retention_engagement_banner
     default: return nil
     }
   }
