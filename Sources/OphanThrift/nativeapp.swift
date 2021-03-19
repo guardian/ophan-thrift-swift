@@ -313,7 +313,7 @@ public final class Device {
 ///   <li>Create the equivalent json and POST the json to https://ophan.theguardian.com/mob with a content type
 ///   of application/json</li>
 ///   <li>Create a thift binary blob in compact binary protocol format from
-///   <a href="https://github.com/guardian/ophan/blob/master/event-model/src/main/thrift/nativeapp.thrift">this definition</a>
+///   <a href="https://github.com/guardian/ophan/blob/main/event-model/src/main/thrift/nativeapp.thrift">this definition</a>
 ///   and POST to
 ///   https://ophan.theguardian.com/mob a content type of application/vnd.apache.thrift.compact</li>
 /// </ol>
