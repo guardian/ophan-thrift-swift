@@ -63,6 +63,7 @@ public enum PaymentProvider : TEnum {
   case stripe_payment_request_button
   case subscribe_with_google
   case amazon_pay
+  case stripe_sepa
 
   public static func read(from proto: TProtocol) throws -> PaymentProvider {
     let raw: Int32 = try proto.read()
@@ -89,6 +90,7 @@ public enum PaymentProvider : TEnum {
     case .stripe_payment_request_button: return 6
     case .subscribe_with_google: return 7
     case .amazon_pay: return 8
+    case .stripe_sepa: return 9
     }
   }
 
@@ -102,6 +104,7 @@ public enum PaymentProvider : TEnum {
     case 6: self = .stripe_payment_request_button
     case 7: self = .subscribe_with_google
     case 8: self = .amazon_pay
+    case 9: self = .stripe_sepa
     default: return nil
     }
   }
@@ -119,6 +122,7 @@ public enum AcquisitionSource : TEnum {
   case guardian_app_android
   case apple_news
   case google_amp
+  case youtube
 
   public static func read(from proto: TProtocol) throws -> AcquisitionSource {
     let raw: Int32 = try proto.read()
@@ -148,6 +152,7 @@ public enum AcquisitionSource : TEnum {
     case .guardian_app_android: return 9
     case .apple_news: return 10
     case .google_amp: return 11
+    case .youtube: return 12
     }
   }
 
@@ -164,6 +169,7 @@ public enum AcquisitionSource : TEnum {
     case 9: self = .guardian_app_android
     case 10: self = .apple_news
     case 11: self = .google_amp
+    case 12: self = .youtube
     default: return nil
     }
   }
