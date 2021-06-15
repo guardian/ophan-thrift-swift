@@ -157,11 +157,11 @@ public final class Event {
   /// DEPRECATED - use referrer
   /// The referring path, i.e. the path representing a page displyed on the app on
   /// which the user clicked a link to arrive at this page.
-  public var previousPath: String?
+  public var OBSOLETE_previousPath: String?
 
   /// DEPRECATED - use referrer
   /// The means by which the user arrived at this page.
-  public var referringSource: Source?
+  public var OBSOLETE_referringSource: Source?
 
   /// An id which we can link back to Pushy.
   public var pushNotificationId: String?
@@ -232,15 +232,15 @@ public final class Event {
     self.eventId = eventId
   }
 
-  public init(eventType: EventType?, eventId: String, viewId: String?, ageMsLong: Int64?, ageMs: Int32?, path: String?, previousPath: String?, referringSource: Source?, pushNotificationId: String?, adLoad: RenderedAd?, benchmark: BenchmarkData?, networkOperation: NetworkOperationData?, attentionMs: Int64?, scrollDepth: ScrollDepth?, media: MediaPlayback?, ab: AbTestInfo?, interaction: Interaction?, referrer: Referrer?, url: Url?, renderedComponents: TList<String>?, componentEvent: ComponentEvent?, acquisition: Acquisition?, inPageClick: InPageClick?) {
+  public init(eventType: EventType?, eventId: String, viewId: String?, ageMsLong: Int64?, ageMs: Int32?, path: String?, OBSOLETE_previousPath: String?, OBSOLETE_referringSource: Source?, pushNotificationId: String?, adLoad: RenderedAd?, benchmark: BenchmarkData?, networkOperation: NetworkOperationData?, attentionMs: Int64?, scrollDepth: ScrollDepth?, media: MediaPlayback?, ab: AbTestInfo?, interaction: Interaction?, referrer: Referrer?, url: Url?, renderedComponents: TList<String>?, componentEvent: ComponentEvent?, acquisition: Acquisition?, inPageClick: InPageClick?) {
     self.eventType = eventType
     self.eventId = eventId
     self.viewId = viewId
     self.ageMsLong = ageMsLong
     self.ageMs = ageMs
     self.path = path
-    self.previousPath = previousPath
-    self.referringSource = referringSource
+    self.OBSOLETE_previousPath = OBSOLETE_previousPath
+    self.OBSOLETE_referringSource = OBSOLETE_referringSource
     self.pushNotificationId = pushNotificationId
     self.adLoad = adLoad
     self.benchmark = benchmark

@@ -87,8 +87,8 @@ public func ==(lhs: Event, rhs: Event) -> Bool {
     (lhs.ageMsLong == rhs.ageMsLong) &&
     (lhs.ageMs == rhs.ageMs) &&
     (lhs.path == rhs.path) &&
-    (lhs.previousPath == rhs.previousPath) &&
-    (lhs.referringSource == rhs.referringSource) &&
+    (lhs.OBSOLETE_previousPath == rhs.OBSOLETE_previousPath) &&
+    (lhs.OBSOLETE_referringSource == rhs.OBSOLETE_referringSource) &&
     (lhs.pushNotificationId == rhs.pushNotificationId) &&
     (lhs.adLoad == rhs.adLoad) &&
     (lhs.benchmark == rhs.benchmark) &&
@@ -116,8 +116,8 @@ extension Event : CustomStringConvertible {
     desc += "ageMsLong=\(String(describing: self.ageMsLong)), "
     desc += "ageMs=\(String(describing: self.ageMs)), "
     desc += "path=\(String(describing: self.path)), "
-    desc += "previousPath=\(String(describing: self.previousPath)), "
-    desc += "referringSource=\(String(describing: self.referringSource)), "
+    desc += "OBSOLETE_previousPath=\(String(describing: self.OBSOLETE_previousPath)), "
+    desc += "OBSOLETE_referringSource=\(String(describing: self.OBSOLETE_referringSource)), "
     desc += "pushNotificationId=\(String(describing: self.pushNotificationId)), "
     desc += "adLoad=\(String(describing: self.adLoad)), "
     desc += "benchmark=\(String(describing: self.benchmark)), "
@@ -147,8 +147,8 @@ extension Event : Hashable {
     hasher.combine(ageMsLong)
     hasher.combine(ageMs)
     hasher.combine(path)
-    hasher.combine(previousPath)
-    hasher.combine(referringSource)
+    hasher.combine(OBSOLETE_previousPath)
+    hasher.combine(OBSOLETE_referringSource)
     hasher.combine(pushNotificationId)
     hasher.combine(adLoad)
     hasher.combine(benchmark)
@@ -171,7 +171,7 @@ extension Event : Hashable {
 extension Event : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["eventType": 3, "eventId": 1, "viewId": 9, "ageMsLong": 22, "ageMs": 2, "path": 4, "previousPath": 5, "referringSource": 6, "pushNotificationId": 7, "adLoad": 8, "benchmark": 10, "networkOperation": 11, "attentionMs": 12, "scrollDepth": 13, "media": 14, "ab": 15, "interaction": 16, "referrer": 17, "url": 18, "renderedComponents": 19, "componentEvent": 20, "acquisition": 21, "inPageClick": 23, ]
+    return ["eventType": 3, "eventId": 1, "viewId": 9, "ageMsLong": 22, "ageMs": 2, "path": 4, "OBSOLETE_previousPath": 5, "OBSOLETE_referringSource": 6, "pushNotificationId": 7, "adLoad": 8, "benchmark": 10, "networkOperation": 11, "attentionMs": 12, "scrollDepth": 13, "media": 14, "ab": 15, "interaction": 16, "referrer": 17, "url": 18, "renderedComponents": 19, "componentEvent": 20, "acquisition": 21, "inPageClick": 23, ]
   }
 
   public static var structName: String { return "Event" }
@@ -184,8 +184,8 @@ extension Event : TStruct {
     var ageMsLong: Int64?
     var ageMs: Int32?
     var path: String?
-    var previousPath: String?
-    var referringSource: Source?
+    var OBSOLETE_previousPath: String?
+    var OBSOLETE_referringSource: Source?
     var pushNotificationId: String?
     var adLoad: RenderedAd?
     var benchmark: BenchmarkData?
@@ -214,8 +214,8 @@ extension Event : TStruct {
         case (22, .i64):             ageMsLong = try Int64.read(from: proto)
         case (2, .i32):             ageMs = try Int32.read(from: proto)
         case (4, .string):           path = try String.read(from: proto)
-        case (5, .string):           previousPath = try String.read(from: proto)
-        case (6, .i32):             referringSource = try Source.read(from: proto)
+        case (5, .string):           OBSOLETE_previousPath = try String.read(from: proto)
+        case (6, .i32):             OBSOLETE_referringSource = try Source.read(from: proto)
         case (7, .string):           pushNotificationId = try String.read(from: proto)
         case (8, .struct):           adLoad = try RenderedAd.read(from: proto)
         case (10, .struct):           benchmark = try BenchmarkData.read(from: proto)
@@ -241,7 +241,7 @@ extension Event : TStruct {
     // Required fields
     try proto.validateValue(eventId, named: "eventId")
 
-    return Event(eventType: eventType, eventId: eventId, viewId: viewId, ageMsLong: ageMsLong, ageMs: ageMs, path: path, previousPath: previousPath, referringSource: referringSource, pushNotificationId: pushNotificationId, adLoad: adLoad, benchmark: benchmark, networkOperation: networkOperation, attentionMs: attentionMs, scrollDepth: scrollDepth, media: media, ab: ab, interaction: interaction, referrer: referrer, url: url, renderedComponents: renderedComponents, componentEvent: componentEvent, acquisition: acquisition, inPageClick: inPageClick)
+    return Event(eventType: eventType, eventId: eventId, viewId: viewId, ageMsLong: ageMsLong, ageMs: ageMs, path: path, OBSOLETE_previousPath: OBSOLETE_previousPath, OBSOLETE_referringSource: OBSOLETE_referringSource, pushNotificationId: pushNotificationId, adLoad: adLoad, benchmark: benchmark, networkOperation: networkOperation, attentionMs: attentionMs, scrollDepth: scrollDepth, media: media, ab: ab, interaction: interaction, referrer: referrer, url: url, renderedComponents: renderedComponents, componentEvent: componentEvent, acquisition: acquisition, inPageClick: inPageClick)
   }
 
 }
