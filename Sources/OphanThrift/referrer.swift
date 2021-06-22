@@ -10,6 +10,26 @@ import Foundation
 import Thrift
 
 
+public final class AppReferral {
+
+  /// Eg 'android-app://{package_id}[/{scheme}[/{host}[/{path}]]][#Intent;{...}]' on Android (the full raw Intent provided to the app)
+  public var raw: String
+
+  /// Eg 'com.google.android.gm' for the Android GMail app
+  public var appId: String?
+
+
+  public init(raw: String) {
+    self.raw = raw
+  }
+
+  public init(raw: String, appId: String?) {
+    self.raw = raw
+    self.appId = appId
+  }
+
+}
+
 /// Information about the referrer - previous page - that the reader navigated to
 /// this one from.
 public final class Referrer {
@@ -48,9 +68,11 @@ public final class Referrer {
 
   public var tagIdFollowed: String?
 
+  public var appReferral: AppReferral?
+
 
   public init() { }
-  public init(url: Url?, component: String?, linkName: LinkName?, platform: Platform?, viewId: String?, email: String?, nativeAppSource: Source?, google: GoogleReferral?, tagIdFollowed: String?) {
+  public init(url: Url?, component: String?, linkName: LinkName?, platform: Platform?, viewId: String?, email: String?, nativeAppSource: Source?, google: GoogleReferral?, tagIdFollowed: String?, appReferral: AppReferral?) {
     self.url = url
     self.component = component
     self.linkName = linkName
@@ -60,6 +82,7 @@ public final class Referrer {
     self.nativeAppSource = nativeAppSource
     self.google = google
     self.tagIdFollowed = tagIdFollowed
+    self.appReferral = appReferral
   }
 
 }

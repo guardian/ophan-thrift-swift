@@ -10,6 +10,70 @@ import Foundation
 import Thrift
 
 
+public func ==(lhs: AppReferral, rhs: AppReferral) -> Bool {
+  return
+    (lhs.raw == rhs.raw) &&
+    (lhs.appId == rhs.appId)
+}
+
+extension AppReferral : CustomStringConvertible {
+
+  public var description : String {
+    var desc = "AppReferral("
+    desc += "raw=\(String(describing: self.raw)), "
+    desc += "appId=\(String(describing: self.appId))"
+    return desc
+  }
+
+}
+
+extension AppReferral : Hashable {
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(raw)
+    hasher.combine(appId)
+  }
+
+}
+
+extension AppReferral : TStruct {
+
+  public static var fieldIds: [String: Int32] {
+    return ["raw": 1, "appId": 2, ]
+  }
+
+  public static var structName: String { return "AppReferral" }
+
+  public static func read(from proto: TProtocol) throws -> AppReferral {
+    _ = try proto.readStructBegin()
+    var raw: String!
+    var appId: String?
+
+    fields: while true {
+
+      let (_, fieldType, fieldID) = try proto.readFieldBegin()
+
+      switch (fieldID, fieldType) {
+        case (_, .stop):            break fields
+        case (1, .string):           raw = try String.read(from: proto)
+        case (2, .string):           appId = try String.read(from: proto)
+        case let (_, unknownType):  try proto.skip(type: unknownType)
+      }
+
+      try proto.readFieldEnd()
+    }
+
+    try proto.readStructEnd()
+    // Required fields
+    try proto.validateValue(raw, named: "raw")
+
+    return AppReferral(raw: raw, appId: appId)
+  }
+
+}
+
+
+
 public func ==(lhs: Referrer, rhs: Referrer) -> Bool {
   return
     (lhs.url == rhs.url) &&
@@ -20,7 +84,8 @@ public func ==(lhs: Referrer, rhs: Referrer) -> Bool {
     (lhs.email == rhs.email) &&
     (lhs.nativeAppSource == rhs.nativeAppSource) &&
     (lhs.google == rhs.google) &&
-    (lhs.tagIdFollowed == rhs.tagIdFollowed)
+    (lhs.tagIdFollowed == rhs.tagIdFollowed) &&
+    (lhs.appReferral == rhs.appReferral)
 }
 
 extension Referrer : CustomStringConvertible {
@@ -35,7 +100,8 @@ extension Referrer : CustomStringConvertible {
     desc += "email=\(String(describing: self.email)), "
     desc += "nativeAppSource=\(String(describing: self.nativeAppSource)), "
     desc += "google=\(String(describing: self.google)), "
-    desc += "tagIdFollowed=\(String(describing: self.tagIdFollowed))"
+    desc += "tagIdFollowed=\(String(describing: self.tagIdFollowed)), "
+    desc += "appReferral=\(String(describing: self.appReferral))"
     return desc
   }
 
@@ -53,6 +119,7 @@ extension Referrer : Hashable {
     hasher.combine(nativeAppSource)
     hasher.combine(google)
     hasher.combine(tagIdFollowed)
+    hasher.combine(appReferral)
   }
 
 }
@@ -60,7 +127,7 @@ extension Referrer : Hashable {
 extension Referrer : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["url": 1, "component": 4, "linkName": 10, "platform": 5, "viewId": 6, "email": 7, "nativeAppSource": 8, "google": 9, "tagIdFollowed": 11, ]
+    return ["url": 1, "component": 4, "linkName": 10, "platform": 5, "viewId": 6, "email": 7, "nativeAppSource": 8, "google": 9, "tagIdFollowed": 11, "appReferral": 12, ]
   }
 
   public static var structName: String { return "Referrer" }
@@ -76,6 +143,7 @@ extension Referrer : TStruct {
     var nativeAppSource: Source?
     var google: GoogleReferral?
     var tagIdFollowed: String?
+    var appReferral: AppReferral?
 
     fields: while true {
 
@@ -92,6 +160,7 @@ extension Referrer : TStruct {
         case (8, .i32):             nativeAppSource = try Source.read(from: proto)
         case (9, .struct):           google = try GoogleReferral.read(from: proto)
         case (11, .string):           tagIdFollowed = try String.read(from: proto)
+        case (12, .struct):           appReferral = try AppReferral.read(from: proto)
         case let (_, unknownType):  try proto.skip(type: unknownType)
       }
 
@@ -100,7 +169,7 @@ extension Referrer : TStruct {
 
     try proto.readStructEnd()
 
-    return Referrer(url: url, component: component, linkName: linkName, platform: platform, viewId: viewId, email: email, nativeAppSource: nativeAppSource, google: google, tagIdFollowed: tagIdFollowed)
+    return Referrer(url: url, component: component, linkName: linkName, platform: platform, viewId: viewId, email: email, nativeAppSource: nativeAppSource, google: google, tagIdFollowed: tagIdFollowed, appReferral: appReferral)
   }
 
 }
