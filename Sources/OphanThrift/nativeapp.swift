@@ -339,9 +339,8 @@ public final class NativeAppSubmission {
   /// The interaction events contained within this submission.
   public var events: TList<Event>
 
-  /// DEPRECATED - Apps no longer use Krux
-  /// The krux identifer for this user.
-  public var kruxId: String?
+  /// DEPRECATED - Used to be for the user's Krux identifer.
+  public var OBSOLETE_kruxId: String?
 
   /// If this user is a member, what tier are they currently a part of?
   public var membershipTier: MembershipTier?
@@ -353,12 +352,12 @@ public final class NativeAppSubmission {
     self.events = events
   }
 
-  public init(app: App, device: Device?, deviceId: String, userId: String?, kruxId: String?, subscriptionId: SubscriptionType?, events: TList<Event>, membershipTier: MembershipTier?) {
+  public init(app: App, device: Device?, deviceId: String, userId: String?, OBSOLETE_kruxId: String?, subscriptionId: SubscriptionType?, events: TList<Event>, membershipTier: MembershipTier?) {
     self.app = app
     self.device = device
     self.deviceId = deviceId
     self.userId = userId
-    self.kruxId = kruxId
+    self.OBSOLETE_kruxId = OBSOLETE_kruxId
     self.subscriptionId = subscriptionId
     self.events = events
     self.membershipTier = membershipTier

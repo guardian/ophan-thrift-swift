@@ -398,7 +398,7 @@ public func ==(lhs: NativeAppSubmission, rhs: NativeAppSubmission) -> Bool {
     (lhs.device == rhs.device) &&
     (lhs.deviceId == rhs.deviceId) &&
     (lhs.userId == rhs.userId) &&
-    (lhs.kruxId == rhs.kruxId) &&
+    (lhs.OBSOLETE_kruxId == rhs.OBSOLETE_kruxId) &&
     (lhs.subscriptionId == rhs.subscriptionId) &&
     (lhs.events == rhs.events) &&
     (lhs.membershipTier == rhs.membershipTier)
@@ -412,7 +412,7 @@ extension NativeAppSubmission : CustomStringConvertible {
     desc += "device=\(String(describing: self.device)), "
     desc += "deviceId=\(String(describing: self.deviceId)), "
     desc += "userId=\(String(describing: self.userId)), "
-    desc += "kruxId=\(String(describing: self.kruxId)), "
+    desc += "OBSOLETE_kruxId=\(String(describing: self.OBSOLETE_kruxId)), "
     desc += "subscriptionId=\(String(describing: self.subscriptionId)), "
     desc += "events=\(String(describing: self.events)), "
     desc += "membershipTier=\(String(describing: self.membershipTier))"
@@ -428,7 +428,7 @@ extension NativeAppSubmission : Hashable {
     hasher.combine(device)
     hasher.combine(deviceId)
     hasher.combine(userId)
-    hasher.combine(kruxId)
+    hasher.combine(OBSOLETE_kruxId)
     hasher.combine(subscriptionId)
     hasher.combine(events)
     hasher.combine(membershipTier)
@@ -439,7 +439,7 @@ extension NativeAppSubmission : Hashable {
 extension NativeAppSubmission : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["app": 2, "device": 3, "deviceId": 4, "userId": 5, "kruxId": 8, "subscriptionId": 6, "events": 7, "membershipTier": 9, ]
+    return ["app": 2, "device": 3, "deviceId": 4, "userId": 5, "OBSOLETE_kruxId": 8, "subscriptionId": 6, "events": 7, "membershipTier": 9, ]
   }
 
   public static var structName: String { return "NativeAppSubmission" }
@@ -450,7 +450,7 @@ extension NativeAppSubmission : TStruct {
     var device: Device?
     var deviceId: String!
     var userId: String?
-    var kruxId: String?
+    var OBSOLETE_kruxId: String?
     var subscriptionId: SubscriptionType?
     var events: TList<Event>!
     var membershipTier: MembershipTier?
@@ -465,7 +465,7 @@ extension NativeAppSubmission : TStruct {
         case (3, .struct):           device = try Device.read(from: proto)
         case (4, .string):           deviceId = try String.read(from: proto)
         case (5, .string):           userId = try String.read(from: proto)
-        case (8, .string):           kruxId = try String.read(from: proto)
+        case (8, .string):           OBSOLETE_kruxId = try String.read(from: proto)
         case (6, .i32):             subscriptionId = try SubscriptionType.read(from: proto)
         case (7, .list):            events = try TList<Event>.read(from: proto)
         case (9, .i32):             membershipTier = try MembershipTier.read(from: proto)
@@ -481,7 +481,7 @@ extension NativeAppSubmission : TStruct {
     try proto.validateValue(deviceId, named: "deviceId")
     try proto.validateValue(events, named: "events")
 
-    return NativeAppSubmission(app: app, device: device, deviceId: deviceId, userId: userId, kruxId: kruxId, subscriptionId: subscriptionId, events: events, membershipTier: membershipTier)
+    return NativeAppSubmission(app: app, device: device, deviceId: deviceId, userId: userId, OBSOLETE_kruxId: OBSOLETE_kruxId, subscriptionId: subscriptionId, events: events, membershipTier: membershipTier)
   }
 
 }
