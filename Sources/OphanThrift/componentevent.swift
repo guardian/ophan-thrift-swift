@@ -22,6 +22,10 @@ public enum Action : TEnum {
   case click
   case sign_in
   case create_account
+  case accept_default_consent
+  case manage_consent
+  case consent_accept_all
+  case consent_reject_all
 
   public static func read(from proto: TProtocol) throws -> Action {
     let raw: Int32 = try proto.read()
@@ -51,6 +55,10 @@ public enum Action : TEnum {
     case .click: return 9
     case .sign_in: return 10
     case .create_account: return 11
+    case .accept_default_consent: return 12
+    case .manage_consent: return 13
+    case .consent_accept_all: return 14
+    case .consent_reject_all: return 15
     }
   }
 
@@ -67,6 +75,10 @@ public enum Action : TEnum {
     case 9: self = .click
     case 10: self = .sign_in
     case 11: self = .create_account
+    case 12: self = .accept_default_consent
+    case 13: self = .manage_consent
+    case 14: self = .consent_accept_all
+    case 15: self = .consent_reject_all
     default: return nil
     }
   }
@@ -117,6 +129,7 @@ public enum ComponentType : TEnum {
   case retention_engagement_banner
   case acquisition_support_site
   case retention_epic
+  case consent
 
   public static func read(from proto: TProtocol) throws -> ComponentType {
     let raw: Int32 = try proto.read()
@@ -179,6 +192,7 @@ public enum ComponentType : TEnum {
     case .retention_engagement_banner: return 42
     case .acquisition_support_site: return 43
     case .retention_epic: return 44
+    case .consent: return 45
     }
   }
 
@@ -228,6 +242,7 @@ public enum ComponentType : TEnum {
     case 42: self = .retention_engagement_banner
     case 43: self = .acquisition_support_site
     case 44: self = .retention_epic
+    case 45: self = .consent
     default: return nil
     }
   }
