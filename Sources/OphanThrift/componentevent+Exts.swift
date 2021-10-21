@@ -97,7 +97,8 @@ public func ==(lhs: ComponentEvent, rhs: ComponentEvent) -> Bool {
     (lhs.action == rhs.action) &&
     (lhs.value == rhs.value) &&
     (lhs.id == rhs.id) &&
-    (lhs.abTest == rhs.abTest)
+    (lhs.abTest == rhs.abTest) &&
+    (lhs.targetingAbTest == rhs.targetingAbTest)
 }
 
 extension ComponentEvent : CustomStringConvertible {
@@ -108,7 +109,8 @@ extension ComponentEvent : CustomStringConvertible {
     desc += "action=\(String(describing: self.action)), "
     desc += "value=\(String(describing: self.value)), "
     desc += "id=\(String(describing: self.id)), "
-    desc += "abTest=\(String(describing: self.abTest))"
+    desc += "abTest=\(String(describing: self.abTest)), "
+    desc += "targetingAbTest=\(String(describing: self.targetingAbTest))"
     return desc
   }
 
@@ -122,6 +124,7 @@ extension ComponentEvent : Hashable {
     hasher.combine(value)
     hasher.combine(id)
     hasher.combine(abTest)
+    hasher.combine(targetingAbTest)
   }
 
 }
@@ -129,7 +132,7 @@ extension ComponentEvent : Hashable {
 extension ComponentEvent : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["component": 1, "action": 2, "value": 3, "id": 4, "abTest": 5, ]
+    return ["component": 1, "action": 2, "value": 3, "id": 4, "abTest": 5, "targetingAbTest": 6, ]
   }
 
   public static var structName: String { return "ComponentEvent" }
@@ -141,6 +144,7 @@ extension ComponentEvent : TStruct {
     var value: String?
     var id: String?
     var abTest: AbTest?
+    var targetingAbTest: AbTest?
 
     fields: while true {
 
@@ -153,6 +157,7 @@ extension ComponentEvent : TStruct {
         case (3, .string):           value = try String.read(from: proto)
         case (4, .string):           id = try String.read(from: proto)
         case (5, .struct):           abTest = try AbTest.read(from: proto)
+        case (6, .struct):           targetingAbTest = try AbTest.read(from: proto)
         case let (_, unknownType):  try proto.skip(type: unknownType)
       }
 
@@ -164,7 +169,7 @@ extension ComponentEvent : TStruct {
     try proto.validateValue(component, named: "component")
     try proto.validateValue(action, named: "action")
 
-    return ComponentEvent(component: component, action: action, value: value, id: id, abTest: abTest)
+    return ComponentEvent(component: component, action: action, value: value, id: id, abTest: abTest, targetingAbTest: targetingAbTest)
   }
 
 }

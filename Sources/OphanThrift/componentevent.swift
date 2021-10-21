@@ -299,9 +299,10 @@ public final class ComponentEvent {
   public var id: String?
 
   /// If the event was triggered as part of an A/B test, this identifies the test and variant.
-  /// Though a given pageview may have multiple A/B test participations, a component
-  /// event can only be associated with a single test.
   public var abTest: AbTest?
+
+  /// A targeting A/B test can be used to measure the impact of different targeting rules, independent of the primary A/B test.
+  public var targetingAbTest: AbTest?
 
 
   public init(component: ComponentV2, action: Action) {
@@ -309,12 +310,13 @@ public final class ComponentEvent {
     self.action = action
   }
 
-  public init(component: ComponentV2, action: Action, value: String?, id: String?, abTest: AbTest?) {
+  public init(component: ComponentV2, action: Action, value: String?, id: String?, abTest: AbTest?, targetingAbTest: AbTest?) {
     self.component = component
     self.action = action
     self.value = value
     self.id = id
     self.abTest = abTest
+    self.targetingAbTest = targetingAbTest
   }
 
 }
