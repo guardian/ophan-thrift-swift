@@ -70,9 +70,14 @@ public final class Referrer {
 
   public var appReferral: AppReferral?
 
+  /// The Guardian Content API (CAPI) Id of the referring content. Uniquely identifies Content, even if its URL is
+  /// updated. Changing a content's url is generally avoided, but may be done for SEO reasons (eg Coronavirus explainer).
+  /// See also 'Evolving URLs': https://docs.google.com/document/d/1s6xsGHcQOgdPBTbGYwqTXuCz90e3lHKOnkBFW6yCvqY/edit#
+  public var capiId: String?
+
 
   public init() { }
-  public init(url: Url?, component: String?, linkName: LinkName?, platform: Platform?, viewId: String?, email: String?, nativeAppSource: Source?, google: GoogleReferral?, tagIdFollowed: String?, appReferral: AppReferral?) {
+  public init(url: Url?, component: String?, linkName: LinkName?, platform: Platform?, viewId: String?, email: String?, nativeAppSource: Source?, google: GoogleReferral?, tagIdFollowed: String?, appReferral: AppReferral?, capiId: String?) {
     self.url = url
     self.component = component
     self.linkName = linkName
@@ -83,6 +88,7 @@ public final class Referrer {
     self.google = google
     self.tagIdFollowed = tagIdFollowed
     self.appReferral = appReferral
+    self.capiId = capiId
   }
 
 }
