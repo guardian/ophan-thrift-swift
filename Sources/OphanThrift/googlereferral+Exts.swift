@@ -14,7 +14,8 @@ public func ==(lhs: GoogleReferral, rhs: GoogleReferral) -> Bool {
   return
     (lhs.q == rhs.q) &&
     (lhs.rank == rhs.rank) &&
-    (lhs.source == rhs.source)
+    (lhs.source == rhs.source) &&
+    (lhs.products == rhs.products)
 }
 
 extension GoogleReferral : CustomStringConvertible {
@@ -23,7 +24,8 @@ extension GoogleReferral : CustomStringConvertible {
     var desc = "GoogleReferral("
     desc += "q=\(String(describing: self.q)), "
     desc += "rank=\(String(describing: self.rank)), "
-    desc += "source=\(String(describing: self.source))"
+    desc += "source=\(String(describing: self.source)), "
+    desc += "products=\(String(describing: self.products))"
     return desc
   }
 
@@ -35,6 +37,7 @@ extension GoogleReferral : Hashable {
     hasher.combine(q)
     hasher.combine(rank)
     hasher.combine(source)
+    hasher.combine(products)
   }
 
 }
@@ -42,7 +45,7 @@ extension GoogleReferral : Hashable {
 extension GoogleReferral : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["q": 1, "rank": 2, "source": 3, ]
+    return ["q": 1, "rank": 2, "source": 3, "products": 4, ]
   }
 
   public static var structName: String { return "GoogleReferral" }
@@ -52,6 +55,7 @@ extension GoogleReferral : TStruct {
     var q: String?
     var rank: Int32?
     var source: String?
+    var products: TSet<GoogleProduct>?
 
     fields: while true {
 
@@ -62,6 +66,7 @@ extension GoogleReferral : TStruct {
         case (1, .string):           q = try String.read(from: proto)
         case (2, .i32):             rank = try Int32.read(from: proto)
         case (3, .string):           source = try String.read(from: proto)
+        case (4, .set):             products = try TSet<GoogleProduct>.read(from: proto)
         case let (_, unknownType):  try proto.skip(type: unknownType)
       }
 
@@ -70,7 +75,7 @@ extension GoogleReferral : TStruct {
 
     try proto.readStructEnd()
 
-    return GoogleReferral(q: q, rank: rank, source: source)
+    return GoogleReferral(q: q, rank: rank, source: source, products: products)
   }
 
 }
