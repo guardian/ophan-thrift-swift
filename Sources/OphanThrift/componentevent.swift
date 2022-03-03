@@ -26,6 +26,9 @@ public enum Action : TEnum {
   case manage_consent
   case consent_accept_all
   case consent_reject_all
+  case stick
+  case close
+  case `return`
 
   public static func read(from proto: TProtocol) throws -> Action {
     let raw: Int32 = try proto.read()
@@ -59,6 +62,9 @@ public enum Action : TEnum {
     case .manage_consent: return 13
     case .consent_accept_all: return 14
     case .consent_reject_all: return 15
+    case .stick: return 16
+    case .close: return 17
+    case .`return`: return 18
     }
   }
 
@@ -79,6 +85,9 @@ public enum Action : TEnum {
     case 13: self = .manage_consent
     case 14: self = .consent_accept_all
     case 15: self = .consent_reject_all
+    case 16: self = .stick
+    case 17: self = .close
+    case 18: self = .`return`
     default: return nil
     }
   }
@@ -131,6 +140,7 @@ public enum ComponentType : TEnum {
   case retention_epic
   case consent
   case live_blog_pinned_post
+  case sticky_video
 
   public static func read(from proto: TProtocol) throws -> ComponentType {
     let raw: Int32 = try proto.read()
@@ -195,6 +205,7 @@ public enum ComponentType : TEnum {
     case .retention_epic: return 44
     case .consent: return 45
     case .live_blog_pinned_post: return 46
+    case .sticky_video: return 47
     }
   }
 
@@ -246,6 +257,7 @@ public enum ComponentType : TEnum {
     case 44: self = .retention_epic
     case 45: self = .consent
     case 46: self = .live_blog_pinned_post
+    case 47: self = .sticky_video
     default: return nil
     }
   }
