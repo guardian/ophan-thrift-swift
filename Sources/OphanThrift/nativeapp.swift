@@ -71,6 +71,7 @@ public enum Edition : TEnum {
   case us
   case au
   case international
+  case europe
 
   public static func read(from proto: TProtocol) throws -> Edition {
     let raw: Int32 = try proto.read()
@@ -93,6 +94,7 @@ public enum Edition : TEnum {
     case .us: return 1
     case .au: return 2
     case .international: return 3
+    case .europe: return 4
     }
   }
 
@@ -102,6 +104,7 @@ public enum Edition : TEnum {
     case 1: self = .us
     case 2: self = .au
     case 3: self = .international
+    case 4: self = .europe
     default: return nil
     }
   }
