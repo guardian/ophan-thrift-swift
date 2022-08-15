@@ -23,6 +23,7 @@ public enum Product : TEnum {
   case paper_subscription_sunday
   case print_subscription
   case app_premium_tier
+  case supporter_plus
 
   public static func read(from proto: TProtocol) throws -> Product {
     let raw: Int32 = try proto.read()
@@ -53,6 +54,7 @@ public enum Product : TEnum {
     case .paper_subscription_sunday: return 10
     case .print_subscription: return 11
     case .app_premium_tier: return 12
+    case .supporter_plus: return 13
     }
   }
 
@@ -70,6 +72,7 @@ public enum Product : TEnum {
     case 10: self = .paper_subscription_sunday
     case 11: self = .print_subscription
     case 12: self = .app_premium_tier
+    case 13: self = .supporter_plus
     default: return nil
     }
   }
