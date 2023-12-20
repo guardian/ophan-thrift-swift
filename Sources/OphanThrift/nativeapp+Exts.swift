@@ -79,6 +79,149 @@ extension ScrollDepth : TStruct {
 
 
 
+public func ==(lhs: ConsentValue, rhs: ConsentValue) -> Bool {
+  return {
+    switch (lhs, rhs) {
+    case (.tcfConsent(let lval), .tcfConsent(let rval)): return lval == rval
+    case (.ccpaConsent(let lval), .ccpaConsent(let rval)): return lval == rval
+    case (.ausConsent(let lval), .ausConsent(let rval)): return lval == rval
+    default: return false
+    }
+  }()
+}
+
+extension ConsentValue : CustomStringConvertible {
+
+  public var description : String {
+    var desc = "ConsentValue."
+    switch self {
+    case .tcfConsent(let val): desc += "tcfConsent(val: \(val))"
+    case .ccpaConsent(let val): desc += "ccpaConsent(val: \(val))"
+    case .ausConsent(let val): desc += "ausConsent(val: \(val))"
+    }
+    return desc
+  }
+
+}
+
+extension ConsentValue : Hashable {
+
+  public func hash(into hasher: inout Hasher) {
+    switch self {
+    case .tcfConsent(let val): hasher.combine(val)
+    case .ccpaConsent(let val): hasher.combine(val)
+    case .ausConsent(let val): hasher.combine(val)
+    }
+
+  }
+
+}
+
+extension ConsentValue : TStruct {
+
+  public static var fieldIds: [String: Int32] {
+    return ["tcfConsent": 1, "ccpaConsent": 2, "ausConsent": 3, ]
+  }
+
+  public static var structName: String { return "ConsentValue" }
+
+  public static func read(from proto: TProtocol) throws -> ConsentValue {
+    _ = try proto.readStructBegin()
+    var ret: ConsentValue?
+    fields: while true {
+
+      let (_, fieldType, fieldID) = try proto.readFieldBegin()
+
+      switch (fieldID, fieldType) {
+        case (_, .stop):            break fields
+        case (1, .string):                   ret = ConsentValue.tcfConsent(val: try String.read(from: proto))
+        case (2, .bool):                    ret = ConsentValue.ccpaConsent(val: try Bool.read(from: proto))
+        case (3, .bool):                    ret = ConsentValue.ausConsent(val: try Bool.read(from: proto))
+        case let (_, unknownType):  try proto.skip(type: unknownType)
+      }
+      try proto.readFieldEnd()
+    }
+
+    try proto.readStructEnd()
+    if let ret = ret {
+      return ret
+    }
+
+    throw TProtocolError(error: .unknown, message: "Missing required value for type: ConsentValue")  }
+
+}
+
+
+
+public func ==(lhs: ConsentData, rhs: ConsentData) -> Bool {
+  return
+    (lhs.consentValue == rhs.consentValue) &&
+    (lhs.consentUUID == rhs.consentUUID) &&
+    (lhs.cmpVersion == rhs.cmpVersion)
+}
+
+extension ConsentData : CustomStringConvertible {
+
+  public var description : String {
+    var desc = "ConsentData("
+    desc += "consentValue=\(String(describing: self.consentValue)), "
+    desc += "consentUUID=\(String(describing: self.consentUUID)), "
+    desc += "cmpVersion=\(String(describing: self.cmpVersion))"
+    return desc
+  }
+
+}
+
+extension ConsentData : Hashable {
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(consentValue)
+    hasher.combine(consentUUID)
+    hasher.combine(cmpVersion)
+  }
+
+}
+
+extension ConsentData : TStruct {
+
+  public static var fieldIds: [String: Int32] {
+    return ["consentValue": 1, "consentUUID": 2, "cmpVersion": 3, ]
+  }
+
+  public static var structName: String { return "ConsentData" }
+
+  public static func read(from proto: TProtocol) throws -> ConsentData {
+    _ = try proto.readStructBegin()
+    var consentValue: ConsentValue!
+    var consentUUID: String?
+    var cmpVersion: String?
+
+    fields: while true {
+
+      let (_, fieldType, fieldID) = try proto.readFieldBegin()
+
+      switch (fieldID, fieldType) {
+        case (_, .stop):            break fields
+        case (1, .struct):           consentValue = try ConsentValue.read(from: proto)
+        case (2, .string):           consentUUID = try String.read(from: proto)
+        case (3, .string):           cmpVersion = try String.read(from: proto)
+        case let (_, unknownType):  try proto.skip(type: unknownType)
+      }
+
+      try proto.readFieldEnd()
+    }
+
+    try proto.readStructEnd()
+    // Required fields
+    try proto.validateValue(consentValue, named: "consentValue")
+
+    return ConsentData(consentValue: consentValue, consentUUID: consentUUID, cmpVersion: cmpVersion)
+  }
+
+}
+
+
+
 public func ==(lhs: Event, rhs: Event) -> Bool {
   return
     (lhs.eventType == rhs.eventType) &&
@@ -103,7 +246,8 @@ public func ==(lhs: Event, rhs: Event) -> Bool {
     (lhs.renderedComponents == rhs.renderedComponents) &&
     (lhs.componentEvent == rhs.componentEvent) &&
     (lhs.acquisition == rhs.acquisition) &&
-    (lhs.inPageClick == rhs.inPageClick)
+    (lhs.inPageClick == rhs.inPageClick) &&
+    (lhs.consent == rhs.consent)
 }
 
 extension Event : CustomStringConvertible {
@@ -132,7 +276,8 @@ extension Event : CustomStringConvertible {
     desc += "renderedComponents=\(String(describing: self.renderedComponents)), "
     desc += "componentEvent=\(String(describing: self.componentEvent)), "
     desc += "acquisition=\(String(describing: self.acquisition)), "
-    desc += "inPageClick=\(String(describing: self.inPageClick))"
+    desc += "inPageClick=\(String(describing: self.inPageClick)), "
+    desc += "consent=\(String(describing: self.consent))"
     return desc
   }
 
@@ -164,6 +309,7 @@ extension Event : Hashable {
     hasher.combine(componentEvent)
     hasher.combine(acquisition)
     hasher.combine(inPageClick)
+    hasher.combine(consent)
   }
 
 }
@@ -171,7 +317,7 @@ extension Event : Hashable {
 extension Event : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["eventType": 3, "eventId": 1, "viewId": 9, "ageMsLong": 22, "ageMs": 2, "path": 4, "OBSOLETE_previousPath": 5, "OBSOLETE_referringSource": 6, "pushNotificationId": 7, "adLoad": 8, "benchmark": 10, "networkOperation": 11, "attentionMs": 12, "scrollDepth": 13, "media": 14, "ab": 15, "interaction": 16, "referrer": 17, "url": 18, "renderedComponents": 19, "componentEvent": 20, "acquisition": 21, "inPageClick": 23, ]
+    return ["eventType": 3, "eventId": 1, "viewId": 9, "ageMsLong": 22, "ageMs": 2, "path": 4, "OBSOLETE_previousPath": 5, "OBSOLETE_referringSource": 6, "pushNotificationId": 7, "adLoad": 8, "benchmark": 10, "networkOperation": 11, "attentionMs": 12, "scrollDepth": 13, "media": 14, "ab": 15, "interaction": 16, "referrer": 17, "url": 18, "renderedComponents": 19, "componentEvent": 20, "acquisition": 21, "inPageClick": 23, "consent": 24, ]
   }
 
   public static var structName: String { return "Event" }
@@ -201,6 +347,7 @@ extension Event : TStruct {
     var componentEvent: ComponentEvent?
     var acquisition: Acquisition?
     var inPageClick: InPageClick?
+    var consent: ConsentData?
 
     fields: while true {
 
@@ -231,6 +378,7 @@ extension Event : TStruct {
         case (20, .struct):           componentEvent = try ComponentEvent.read(from: proto)
         case (21, .struct):           acquisition = try Acquisition.read(from: proto)
         case (23, .struct):           inPageClick = try InPageClick.read(from: proto)
+        case (24, .struct):           consent = try ConsentData.read(from: proto)
         case let (_, unknownType):  try proto.skip(type: unknownType)
       }
 
@@ -241,7 +389,7 @@ extension Event : TStruct {
     // Required fields
     try proto.validateValue(eventId, named: "eventId")
 
-    return Event(eventType: eventType, eventId: eventId, viewId: viewId, ageMsLong: ageMsLong, ageMs: ageMs, path: path, OBSOLETE_previousPath: OBSOLETE_previousPath, OBSOLETE_referringSource: OBSOLETE_referringSource, pushNotificationId: pushNotificationId, adLoad: adLoad, benchmark: benchmark, networkOperation: networkOperation, attentionMs: attentionMs, scrollDepth: scrollDepth, media: media, ab: ab, interaction: interaction, referrer: referrer, url: url, renderedComponents: renderedComponents, componentEvent: componentEvent, acquisition: acquisition, inPageClick: inPageClick)
+    return Event(eventType: eventType, eventId: eventId, viewId: viewId, ageMsLong: ageMsLong, ageMs: ageMs, path: path, OBSOLETE_previousPath: OBSOLETE_previousPath, OBSOLETE_referringSource: OBSOLETE_referringSource, pushNotificationId: pushNotificationId, adLoad: adLoad, benchmark: benchmark, networkOperation: networkOperation, attentionMs: attentionMs, scrollDepth: scrollDepth, media: media, ab: ab, interaction: interaction, referrer: referrer, url: url, renderedComponents: renderedComponents, componentEvent: componentEvent, acquisition: acquisition, inPageClick: inPageClick, consent: consent)
   }
 
 }

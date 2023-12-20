@@ -20,6 +20,7 @@ public enum EventType : TEnum {
   case component_event
   case acquisition
   case in_page_click
+  case consent
 
   public static func read(from proto: TProtocol) throws -> EventType {
     let raw: Int32 = try proto.read()
@@ -47,6 +48,7 @@ public enum EventType : TEnum {
     case .component_event: return 6
     case .acquisition: return 7
     case .in_page_click: return 8
+    case .consent: return 9
     }
   }
 
@@ -61,6 +63,7 @@ public enum EventType : TEnum {
     case 6: self = .component_event
     case 7: self = .acquisition
     case 8: self = .in_page_click
+    case 9: self = .consent
     default: return nil
     }
   }
@@ -132,6 +135,41 @@ public final class ScrollDepth {
     self.maxExtent = maxExtent
     self.numberOfContainers = numberOfContainers
     self.numberOfContainersViewed = numberOfContainersViewed
+  }
+
+}
+
+/// A user’s consent, which is represented differently for different
+/// jurisdictions.
+public enum ConsentValue {
+
+  case tcfConsent(val: String)
+
+  case ccpaConsent(val: Bool)
+
+  case ausConsent(val: Bool)
+}
+
+/// A `ConsentData` holds a user’s consent, plus some metadata.
+public final class ConsentData {
+
+  public var consentValue: ConsentValue
+
+  /// `consentUUID` is an identifier for the consent, for debugging.
+  public var consentUUID: String?
+
+  /// `cmpVersion` is the version of the Consent Management Platform in use, for debugging.
+  public var cmpVersion: String?
+
+
+  public init(consentValue: ConsentValue) {
+    self.consentValue = consentValue
+  }
+
+  public init(consentValue: ConsentValue, consentUUID: String?, cmpVersion: String?) {
+    self.consentValue = consentValue
+    self.consentUUID = consentUUID
+    self.cmpVersion = cmpVersion
   }
 
 }
@@ -230,12 +268,15 @@ public final class Event {
   /// If populated, this event includes data about a click that did not result in a page transition
   public var inPageClick: InPageClick?
 
+  /// Populated if eventType is CONSENT, this field contains the user’s consent.
+  public var consent: ConsentData?
+
 
   public init(eventId: String) {
     self.eventId = eventId
   }
 
-  public init(eventType: EventType?, eventId: String, viewId: String?, ageMsLong: Int64?, ageMs: Int32?, path: String?, OBSOLETE_previousPath: String?, OBSOLETE_referringSource: Source?, pushNotificationId: String?, adLoad: RenderedAd?, benchmark: BenchmarkData?, networkOperation: NetworkOperationData?, attentionMs: Int64?, scrollDepth: ScrollDepth?, media: MediaPlayback?, ab: AbTestInfo?, interaction: Interaction?, referrer: Referrer?, url: Url?, renderedComponents: TList<String>?, componentEvent: ComponentEvent?, acquisition: Acquisition?, inPageClick: InPageClick?) {
+  public init(eventType: EventType?, eventId: String, viewId: String?, ageMsLong: Int64?, ageMs: Int32?, path: String?, OBSOLETE_previousPath: String?, OBSOLETE_referringSource: Source?, pushNotificationId: String?, adLoad: RenderedAd?, benchmark: BenchmarkData?, networkOperation: NetworkOperationData?, attentionMs: Int64?, scrollDepth: ScrollDepth?, media: MediaPlayback?, ab: AbTestInfo?, interaction: Interaction?, referrer: Referrer?, url: Url?, renderedComponents: TList<String>?, componentEvent: ComponentEvent?, acquisition: Acquisition?, inPageClick: InPageClick?, consent: ConsentData?) {
     self.eventType = eventType
     self.eventId = eventId
     self.viewId = viewId
@@ -259,6 +300,7 @@ public final class Event {
     self.componentEvent = componentEvent
     self.acquisition = acquisition
     self.inPageClick = inPageClick
+    self.consent = consent
   }
 
 }
