@@ -85,6 +85,7 @@ public func ==(lhs: ConsentValue, rhs: ConsentValue) -> Bool {
     case (.tcfConsent(let lval), .tcfConsent(let rval)): return lval == rval
     case (.ccpaConsent(let lval), .ccpaConsent(let rval)): return lval == rval
     case (.ausConsent(let lval), .ausConsent(let rval)): return lval == rval
+    case (.usNatConsent(let lval), .usNatConsent(let rval)): return lval == rval
     default: return false
     }
   }()
@@ -98,6 +99,7 @@ extension ConsentValue : CustomStringConvertible {
     case .tcfConsent(let val): desc += "tcfConsent(val: \(val))"
     case .ccpaConsent(let val): desc += "ccpaConsent(val: \(val))"
     case .ausConsent(let val): desc += "ausConsent(val: \(val))"
+    case .usNatConsent(let val): desc += "usNatConsent(val: \(val))"
     }
     return desc
   }
@@ -111,6 +113,7 @@ extension ConsentValue : Hashable {
     case .tcfConsent(let val): hasher.combine(val)
     case .ccpaConsent(let val): hasher.combine(val)
     case .ausConsent(let val): hasher.combine(val)
+    case .usNatConsent(let val): hasher.combine(val)
     }
 
   }
@@ -120,7 +123,7 @@ extension ConsentValue : Hashable {
 extension ConsentValue : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["tcfConsent": 1, "ccpaConsent": 2, "ausConsent": 3, ]
+    return ["tcfConsent": 1, "ccpaConsent": 2, "ausConsent": 3, "usNatConsent": 4, ]
   }
 
   public static var structName: String { return "ConsentValue" }
@@ -137,6 +140,7 @@ extension ConsentValue : TStruct {
         case (1, .string):                   ret = ConsentValue.tcfConsent(val: try String.read(from: proto))
         case (2, .bool):                    ret = ConsentValue.ccpaConsent(val: try Bool.read(from: proto))
         case (3, .bool):                    ret = ConsentValue.ausConsent(val: try Bool.read(from: proto))
+        case (4, .bool):                    ret = ConsentValue.usNatConsent(val: try Bool.read(from: proto))
         case let (_, unknownType):  try proto.skip(type: unknownType)
       }
       try proto.readFieldEnd()

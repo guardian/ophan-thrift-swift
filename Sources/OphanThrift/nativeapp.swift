@@ -148,6 +148,8 @@ public enum ConsentValue {
   case ccpaConsent(val: Bool)
 
   case ausConsent(val: Bool)
+
+  case usNatConsent(val: Bool)
 }
 
 /// A `ConsentData` holds a user’s consent, plus some metadata.
