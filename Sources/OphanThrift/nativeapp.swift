@@ -324,14 +324,18 @@ public final class App {
 
   public var platform: Platform?
 
+  /// Whether the app version is currently in Beta.
+  public var isBeta: Bool?
+
 
   public init() { }
-  public init(version: String?, family: String?, os: String?, edition: Edition?, platform: Platform?) {
+  public init(version: String?, family: String?, os: String?, edition: Edition?, platform: Platform?, isBeta: Bool?) {
     self.version = version
     self.family = family
     self.os = os
     self.edition = edition
     self.platform = platform
+    self.isBeta = isBeta
   }
 
 }

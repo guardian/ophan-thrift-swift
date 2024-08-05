@@ -406,7 +406,8 @@ public func ==(lhs: App, rhs: App) -> Bool {
     (lhs.family == rhs.family) &&
     (lhs.os == rhs.os) &&
     (lhs.edition == rhs.edition) &&
-    (lhs.platform == rhs.platform)
+    (lhs.platform == rhs.platform) &&
+    (lhs.isBeta == rhs.isBeta)
 }
 
 extension App : CustomStringConvertible {
@@ -417,7 +418,8 @@ extension App : CustomStringConvertible {
     desc += "family=\(String(describing: self.family)), "
     desc += "os=\(String(describing: self.os)), "
     desc += "edition=\(String(describing: self.edition)), "
-    desc += "platform=\(String(describing: self.platform))"
+    desc += "platform=\(String(describing: self.platform)), "
+    desc += "isBeta=\(String(describing: self.isBeta))"
     return desc
   }
 
@@ -431,6 +433,7 @@ extension App : Hashable {
     hasher.combine(os)
     hasher.combine(edition)
     hasher.combine(platform)
+    hasher.combine(isBeta)
   }
 
 }
@@ -438,7 +441,7 @@ extension App : Hashable {
 extension App : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["version": 1, "family": 2, "os": 3, "edition": 4, "platform": 5, ]
+    return ["version": 1, "family": 2, "os": 3, "edition": 4, "platform": 5, "isBeta": 6, ]
   }
 
   public static var structName: String { return "App" }
@@ -450,6 +453,7 @@ extension App : TStruct {
     var os: String?
     var edition: Edition?
     var platform: Platform?
+    var isBeta: Bool?
 
     fields: while true {
 
@@ -462,6 +466,7 @@ extension App : TStruct {
         case (3, .string):           os = try String.read(from: proto)
         case (4, .i32):             edition = try Edition.read(from: proto)
         case (5, .i32):             platform = try Platform.read(from: proto)
+        case (6, .bool):            isBeta = try Bool.read(from: proto)
         case let (_, unknownType):  try proto.skip(type: unknownType)
       }
 
@@ -470,7 +475,7 @@ extension App : TStruct {
 
     try proto.readStructEnd()
 
-    return App(version: version, family: family, os: os, edition: edition, platform: platform)
+    return App(version: version, family: family, os: os, edition: edition, platform: platform, isBeta: isBeta)
   }
 
 }
