@@ -181,7 +181,7 @@ public final class Acquisition {
   /// Product type
   public var product: Product
 
-  /// If the payment is a one off or reccuring
+  /// If the payment is a one off or recurring
   public var paymentFrequency: PaymentFrequency
 
   /// Currency code (ISO 4217 3-character, upper-case, eg USD, GBP)

@@ -11,6 +11,7 @@ import Thrift
 
 
 public enum MediaType : TEnum {
+  case unknown
   case video
   case audio
 
@@ -26,11 +27,12 @@ public enum MediaType : TEnum {
   }
 
   public init() {
-    self = .video
+    self = .unknown
   }
 
   public var rawValue: Int32 {
     switch self {
+    case .unknown: return 0
     case .video: return 1
     case .audio: return 2
     }
@@ -38,6 +40,7 @@ public enum MediaType : TEnum {
 
   public init?(rawValue: Int32) {
     switch rawValue {
+    case 0: self = .unknown
     case 1: self = .video
     case 2: self = .audio
     default: return nil
@@ -46,6 +49,7 @@ public enum MediaType : TEnum {
 }
 
 public enum MediaEvent : TEnum {
+  case unknown
   case request
   case ready
   case play
@@ -66,11 +70,12 @@ public enum MediaEvent : TEnum {
   }
 
   public init() {
-    self = .request
+    self = .unknown
   }
 
   public var rawValue: Int32 {
     switch self {
+    case .unknown: return 0
     case .request: return 1
     case .ready: return 2
     case .play: return 3
@@ -83,6 +88,7 @@ public enum MediaEvent : TEnum {
 
   public init?(rawValue: Int32) {
     switch rawValue {
+    case 0: self = .unknown
     case 1: self = .request
     case 2: self = .ready
     case 3: self = .play
