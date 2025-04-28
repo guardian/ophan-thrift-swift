@@ -150,6 +150,7 @@ public enum ComponentType : TEnum {
   case container
   case menu
   case acquisitions_gutter
+  case interactive_atom
 
   public static func read(from proto: TProtocol) throws -> ComponentType {
     let raw: Int32 = try proto.read()
@@ -224,6 +225,7 @@ public enum ComponentType : TEnum {
     case .container: return 54
     case .menu: return 55
     case .acquisitions_gutter: return 56
+    case .interactive_atom: return 57
     }
   }
 
@@ -285,6 +287,7 @@ public enum ComponentType : TEnum {
     case 54: self = .container
     case 55: self = .menu
     case 56: self = .acquisitions_gutter
+    case 57: self = .interactive_atom
     default: return nil
     }
   }
