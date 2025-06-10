@@ -39,6 +39,8 @@ public enum SignificantSite : TEnum {
   case threads
   case yahoo
   case duckduckgo
+  case bluesky
+  case chatgpt
 
   public static func read(from proto: TProtocol) throws -> SignificantSite {
     let raw: Int32 = try proto.read()
@@ -85,6 +87,8 @@ public enum SignificantSite : TEnum {
     case .threads: return 25
     case .yahoo: return 26
     case .duckduckgo: return 27
+    case .bluesky: return 28
+    case .chatgpt: return 29
     }
   }
 
@@ -118,6 +122,8 @@ public enum SignificantSite : TEnum {
     case 25: self = .threads
     case 26: self = .yahoo
     case 27: self = .duckduckgo
+    case 28: self = .bluesky
+    case 29: self = .chatgpt
     default: return nil
     }
   }
