@@ -29,6 +29,7 @@ public enum Action : TEnum {
   case stick
   case close
   case `return`
+  case detect
 
   public static func read(from proto: TProtocol) throws -> Action {
     let raw: Int32 = try proto.read()
@@ -65,6 +66,7 @@ public enum Action : TEnum {
     case .stick: return 16
     case .close: return 17
     case .`return`: return 18
+    case .detect: return 19
     }
   }
 
@@ -88,6 +90,7 @@ public enum Action : TEnum {
     case 16: self = .stick
     case 17: self = .close
     case 18: self = .`return`
+    case 19: self = .detect
     default: return nil
     }
   }
@@ -152,6 +155,7 @@ public enum ComponentType : TEnum {
   case acquisitions_gutter
   case interactive_atom
   case loop_video
+  case ad_block_recovery
 
   public static func read(from proto: TProtocol) throws -> ComponentType {
     let raw: Int32 = try proto.read()
@@ -228,6 +232,7 @@ public enum ComponentType : TEnum {
     case .acquisitions_gutter: return 56
     case .interactive_atom: return 57
     case .loop_video: return 58
+    case .ad_block_recovery: return 59
     }
   }
 
@@ -291,6 +296,7 @@ public enum ComponentType : TEnum {
     case 56: self = .acquisitions_gutter
     case 57: self = .interactive_atom
     case 58: self = .loop_video
+    case 59: self = .ad_block_recovery
     default: return nil
     }
   }
