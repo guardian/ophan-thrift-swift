@@ -1,13 +1,19 @@
 #!/bin/sh -e
 
+export GITHUB_TOKEN="$1"
+export GITHUB_APP_SLUG="$2"
+export GITHUB_USER_ID="$3"
+
+export GITHUB_USER_NAME="${GITHUB_APP_SLUG}"[bot]
+export GITHUB_USER_EMAIL="${GITHUB_USER_ID}"+"${GITHUB_APP_SLUG}"[bot]@users.noreply.github.com
+
 # Describe dependencies (for debugging Docker)
 git --version
 thrift --version
 
 # Git setup
-export ACCESS_TOKEN=$1
 git config --global credential.helper "/bin/bash /credential-helper.sh"
-git config --global user.email '<>'
+git config --global user.email "$GITHUB_USER_EMAIL"
 
 # Clone repos and obtain Ophan commit sha
 git clone https://github.com/guardian/ophan.git

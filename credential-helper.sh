@@ -1,3 +1,3 @@
 #!/bin/bash
-echo username=GuardianAndroid
-echo password=$ACCESS_TOKEN
+echo username="$GITHUB_USER_NAME"
+echo password="$GITHUB_TOKEN"

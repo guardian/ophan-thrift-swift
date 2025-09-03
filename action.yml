@@ -1,14 +1,20 @@
 name: 'Update ophan-thrift-swift'
 description: 'Automatically generates Swift Thrift classes (for Ophan tracking) in the iOS Live App'
 inputs:
-  # Configure a personal access token as a secret (in your repo) and pass it to this action
-  # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets#using-encrypted-secrets-in-a-workflow'
-  personal-access-token:
-    description: 'Personal access token used to interact with ophan and ophan-thrift-swift repos'
+  # For example usage, see https://github.com/guardian/ophan/pull/7248
+  app-token:
+    description: 'GitHub App installation token'
+    required: true
+  app-slug:
+    description: 'GitHub App slug'
+    required: true
+  app-user-id:
+    description: 'GitHub App user ID'
     required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.personal-access-token }}
-
+    - ${{ inputs.app-token }}
+    - ${{ inputs.app-slug }}
+    - ${{ inputs.app-user-id }}
