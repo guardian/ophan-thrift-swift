@@ -57,6 +57,11 @@ public enum MediaEvent : TEnum {
   case percent50
   case percent75
   case the_end
+  case pause
+  case mute
+  case unmute
+  case enter_fullscreen
+  case exit_fullscreen
 
   public static func read(from proto: TProtocol) throws -> MediaEvent {
     let raw: Int32 = try proto.read()
@@ -83,6 +88,11 @@ public enum MediaEvent : TEnum {
     case .percent50: return 5
     case .percent75: return 6
     case .the_end: return 7
+    case .pause: return 8
+    case .mute: return 9
+    case .unmute: return 10
+    case .enter_fullscreen: return 11
+    case .exit_fullscreen: return 12
     }
   }
 
@@ -96,6 +106,11 @@ public enum MediaEvent : TEnum {
     case 5: self = .percent50
     case 6: self = .percent75
     case 7: self = .the_end
+    case 8: self = .pause
+    case 9: self = .mute
+    case 10: self = .unmute
+    case 11: self = .enter_fullscreen
+    case 12: self = .exit_fullscreen
     default: return nil
     }
   }
