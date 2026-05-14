@@ -63,6 +63,7 @@ public enum MediaEvent : TEnum {
   case enter_fullscreen
   case exit_fullscreen
   case view
+  case resume
 
   public static func read(from proto: TProtocol) throws -> MediaEvent {
     let raw: Int32 = try proto.read()
@@ -95,6 +96,7 @@ public enum MediaEvent : TEnum {
     case .enter_fullscreen: return 11
     case .exit_fullscreen: return 12
     case .view: return 13
+    case .resume: return 14
     }
   }
 
@@ -114,6 +116,7 @@ public enum MediaEvent : TEnum {
     case 11: self = .enter_fullscreen
     case 12: self = .exit_fullscreen
     case 13: self = .view
+    case 14: self = .resume
     default: return nil
     }
   }
