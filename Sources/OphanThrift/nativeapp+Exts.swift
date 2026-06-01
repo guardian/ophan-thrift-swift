@@ -251,7 +251,8 @@ public func ==(lhs: Event, rhs: Event) -> Bool {
     (lhs.componentEvent == rhs.componentEvent) &&
     (lhs.acquisition == rhs.acquisition) &&
     (lhs.inPageClick == rhs.inPageClick) &&
-    (lhs.consent == rhs.consent)
+    (lhs.consent == rhs.consent) &&
+    (lhs.componentAttentionMs == rhs.componentAttentionMs)
 }
 
 extension Event : CustomStringConvertible {
@@ -281,7 +282,8 @@ extension Event : CustomStringConvertible {
     desc += "componentEvent=\(String(describing: self.componentEvent)), "
     desc += "acquisition=\(String(describing: self.acquisition)), "
     desc += "inPageClick=\(String(describing: self.inPageClick)), "
-    desc += "consent=\(String(describing: self.consent))"
+    desc += "consent=\(String(describing: self.consent)), "
+    desc += "componentAttentionMs=\(String(describing: self.componentAttentionMs))"
     return desc
   }
 
@@ -314,6 +316,7 @@ extension Event : Hashable {
     hasher.combine(acquisition)
     hasher.combine(inPageClick)
     hasher.combine(consent)
+    hasher.combine(componentAttentionMs)
   }
 
 }
@@ -321,7 +324,7 @@ extension Event : Hashable {
 extension Event : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["eventType": 3, "eventId": 1, "viewId": 9, "ageMsLong": 22, "ageMs": 2, "path": 4, "OBSOLETE_previousPath": 5, "OBSOLETE_referringSource": 6, "pushNotificationId": 7, "adLoad": 8, "benchmark": 10, "networkOperation": 11, "attentionMs": 12, "scrollDepth": 13, "media": 14, "ab": 15, "interaction": 16, "referrer": 17, "url": 18, "renderedComponents": 19, "componentEvent": 20, "acquisition": 21, "inPageClick": 23, "consent": 24, ]
+    return ["eventType": 3, "eventId": 1, "viewId": 9, "ageMsLong": 22, "ageMs": 2, "path": 4, "OBSOLETE_previousPath": 5, "OBSOLETE_referringSource": 6, "pushNotificationId": 7, "adLoad": 8, "benchmark": 10, "networkOperation": 11, "attentionMs": 12, "scrollDepth": 13, "media": 14, "ab": 15, "interaction": 16, "referrer": 17, "url": 18, "renderedComponents": 19, "componentEvent": 20, "acquisition": 21, "inPageClick": 23, "consent": 24, "componentAttentionMs": 25, ]
   }
 
   public static var structName: String { return "Event" }
@@ -352,6 +355,7 @@ extension Event : TStruct {
     var acquisition: Acquisition?
     var inPageClick: InPageClick?
     var consent: ConsentData?
+    var componentAttentionMs: TMap<String, Int64>?
 
     fields: while true {
 
@@ -383,6 +387,7 @@ extension Event : TStruct {
         case (21, .struct):           acquisition = try Acquisition.read(from: proto)
         case (23, .struct):           inPageClick = try InPageClick.read(from: proto)
         case (24, .struct):           consent = try ConsentData.read(from: proto)
+        case (25, .map):             componentAttentionMs = try TMap<String, Int64>.read(from: proto)
         case let (_, unknownType):  try proto.skip(type: unknownType)
       }
 
@@ -393,7 +398,7 @@ extension Event : TStruct {
     // Required fields
     try proto.validateValue(eventId, named: "eventId")
 
-    return Event(eventType: eventType, eventId: eventId, viewId: viewId, ageMsLong: ageMsLong, ageMs: ageMs, path: path, OBSOLETE_previousPath: OBSOLETE_previousPath, OBSOLETE_referringSource: OBSOLETE_referringSource, pushNotificationId: pushNotificationId, adLoad: adLoad, benchmark: benchmark, networkOperation: networkOperation, attentionMs: attentionMs, scrollDepth: scrollDepth, media: media, ab: ab, interaction: interaction, referrer: referrer, url: url, renderedComponents: renderedComponents, componentEvent: componentEvent, acquisition: acquisition, inPageClick: inPageClick, consent: consent)
+    return Event(eventType: eventType, eventId: eventId, viewId: viewId, ageMsLong: ageMsLong, ageMs: ageMs, path: path, OBSOLETE_previousPath: OBSOLETE_previousPath, OBSOLETE_referringSource: OBSOLETE_referringSource, pushNotificationId: pushNotificationId, adLoad: adLoad, benchmark: benchmark, networkOperation: networkOperation, attentionMs: attentionMs, scrollDepth: scrollDepth, media: media, ab: ab, interaction: interaction, referrer: referrer, url: url, renderedComponents: renderedComponents, componentEvent: componentEvent, acquisition: acquisition, inPageClick: inPageClick, consent: consent, componentAttentionMs: componentAttentionMs)
   }
 
 }

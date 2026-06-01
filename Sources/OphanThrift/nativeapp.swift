@@ -273,12 +273,17 @@ public final class Event {
   /// Populated if eventType is CONSENT, this field contains the user’s consent.
   public var consent: ConsentData?
 
+  /// Map of component name to time in ms
+  /// when attention time rules are true and the component is visible.
+  /// Matches the componentAttention property on the event model.
+  public var componentAttentionMs: TMap<String, Int64>?
+
 
   public init(eventId: String) {
     self.eventId = eventId
   }
 
-  public init(eventType: EventType?, eventId: String, viewId: String?, ageMsLong: Int64?, ageMs: Int32?, path: String?, OBSOLETE_previousPath: String?, OBSOLETE_referringSource: Source?, pushNotificationId: String?, adLoad: RenderedAd?, benchmark: BenchmarkData?, networkOperation: NetworkOperationData?, attentionMs: Int64?, scrollDepth: ScrollDepth?, media: MediaPlayback?, ab: AbTestInfo?, interaction: Interaction?, referrer: Referrer?, url: Url?, renderedComponents: TList<String>?, componentEvent: ComponentEvent?, acquisition: Acquisition?, inPageClick: InPageClick?, consent: ConsentData?) {
+  public init(eventType: EventType?, eventId: String, viewId: String?, ageMsLong: Int64?, ageMs: Int32?, path: String?, OBSOLETE_previousPath: String?, OBSOLETE_referringSource: Source?, pushNotificationId: String?, adLoad: RenderedAd?, benchmark: BenchmarkData?, networkOperation: NetworkOperationData?, attentionMs: Int64?, scrollDepth: ScrollDepth?, media: MediaPlayback?, ab: AbTestInfo?, interaction: Interaction?, referrer: Referrer?, url: Url?, renderedComponents: TList<String>?, componentEvent: ComponentEvent?, acquisition: Acquisition?, inPageClick: InPageClick?, consent: ConsentData?, componentAttentionMs: TMap<String, Int64>?) {
     self.eventType = eventType
     self.eventId = eventId
     self.viewId = viewId
@@ -303,6 +308,7 @@ public final class Event {
     self.acquisition = acquisition
     self.inPageClick = inPageClick
     self.consent = consent
+    self.componentAttentionMs = componentAttentionMs
   }
 
 }
