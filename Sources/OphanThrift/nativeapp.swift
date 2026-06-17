@@ -21,6 +21,7 @@ public enum EventType : TEnum {
   case acquisition
   case in_page_click
   case consent
+  case product_event
 
   public static func read(from proto: TProtocol) throws -> EventType {
     let raw: Int32 = try proto.read()
@@ -49,6 +50,7 @@ public enum EventType : TEnum {
     case .acquisition: return 7
     case .in_page_click: return 8
     case .consent: return 9
+    case .product_event: return 10
     }
   }
 
@@ -64,6 +66,7 @@ public enum EventType : TEnum {
     case 7: self = .acquisition
     case 8: self = .in_page_click
     case 9: self = .consent
+    case 10: self = .product_event
     default: return nil
     }
   }
@@ -278,12 +281,15 @@ public final class Event {
   /// Matches the componentAttention property on the event model.
   public var componentAttentionMs: TMap<String, Int64>?
 
+  /// Populated if eventType is PRODUCT_EVENT, this field contains the product event.
+  public var productEvent: NativeProductEvent?
+
 
   public init(eventId: String) {
     self.eventId = eventId
   }
 
-  public init(eventType: EventType?, eventId: String, viewId: String?, ageMsLong: Int64?, ageMs: Int32?, path: String?, OBSOLETE_previousPath: String?, OBSOLETE_referringSource: Source?, pushNotificationId: String?, adLoad: RenderedAd?, benchmark: BenchmarkData?, networkOperation: NetworkOperationData?, attentionMs: Int64?, scrollDepth: ScrollDepth?, media: MediaPlayback?, ab: AbTestInfo?, interaction: Interaction?, referrer: Referrer?, url: Url?, renderedComponents: TList<String>?, componentEvent: ComponentEvent?, acquisition: Acquisition?, inPageClick: InPageClick?, consent: ConsentData?, componentAttentionMs: TMap<String, Int64>?) {
+  public init(eventType: EventType?, eventId: String, viewId: String?, ageMsLong: Int64?, ageMs: Int32?, path: String?, OBSOLETE_previousPath: String?, OBSOLETE_referringSource: Source?, pushNotificationId: String?, adLoad: RenderedAd?, benchmark: BenchmarkData?, networkOperation: NetworkOperationData?, attentionMs: Int64?, scrollDepth: ScrollDepth?, media: MediaPlayback?, ab: AbTestInfo?, interaction: Interaction?, referrer: Referrer?, url: Url?, renderedComponents: TList<String>?, componentEvent: ComponentEvent?, acquisition: Acquisition?, inPageClick: InPageClick?, consent: ConsentData?, componentAttentionMs: TMap<String, Int64>?, productEvent: NativeProductEvent?) {
     self.eventType = eventType
     self.eventId = eventId
     self.viewId = viewId
@@ -309,6 +315,7 @@ public final class Event {
     self.inPageClick = inPageClick
     self.consent = consent
     self.componentAttentionMs = componentAttentionMs
+    self.productEvent = productEvent
   }
 
 }
