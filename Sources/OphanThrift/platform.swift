@@ -32,6 +32,7 @@ public enum Platform : TEnum {
   case manage_my_account
   case smart_news
   case editions
+  case help_centre
 
   public static func read(from proto: TProtocol) throws -> Platform {
     let raw: Int32 = try proto.read()
@@ -71,6 +72,7 @@ public enum Platform : TEnum {
     case .manage_my_account: return 18
     case .smart_news: return 19
     case .editions: return 20
+    case .help_centre: return 21
     }
   }
 
@@ -97,6 +99,7 @@ public enum Platform : TEnum {
     case 18: self = .manage_my_account
     case 19: self = .smart_news
     case 20: self = .editions
+    case 21: self = .help_centre
     default: return nil
     }
   }
