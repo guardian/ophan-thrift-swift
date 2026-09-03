@@ -75,9 +75,12 @@ public final class Referrer {
   /// See also 'Evolving URLs': https://docs.google.com/document/d/1s6xsGHcQOgdPBTbGYwqTXuCz90e3lHKOnkBFW6yCvqY/edit#
   public var capiId: String?
 
+  /// The UUID of the Fronts headline test that was active on the card which referred this page view.
+  public var frontsTestUUID: String?
+
 
   public init() { }
-  public init(url: Url?, component: String?, linkName: LinkName?, platform: Platform?, viewId: String?, email: String?, nativeAppSource: Source?, google: GoogleReferral?, tagIdFollowed: String?, appReferral: AppReferral?, capiId: String?) {
+  public init(url: Url?, component: String?, linkName: LinkName?, platform: Platform?, viewId: String?, email: String?, nativeAppSource: Source?, google: GoogleReferral?, tagIdFollowed: String?, appReferral: AppReferral?, capiId: String?, frontsTestUUID: String?) {
     self.url = url
     self.component = component
     self.linkName = linkName
@@ -89,6 +92,7 @@ public final class Referrer {
     self.tagIdFollowed = tagIdFollowed
     self.appReferral = appReferral
     self.capiId = capiId
+    self.frontsTestUUID = frontsTestUUID
   }
 
 }
