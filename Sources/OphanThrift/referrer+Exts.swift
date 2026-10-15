@@ -74,6 +74,77 @@ extension AppReferral : TStruct {
 
 
 
+public func ==(lhs: FrontsTestExposure, rhs: FrontsTestExposure) -> Bool {
+  return
+    (lhs.variant == rhs.variant) &&
+    (lhs.dt == rhs.dt) &&
+    (lhs.path == rhs.path)
+}
+
+extension FrontsTestExposure : CustomStringConvertible {
+
+  public var description : String {
+    var desc = "FrontsTestExposure("
+    desc += "variant=\(String(describing: self.variant)), "
+    desc += "dt=\(String(describing: self.dt)), "
+    desc += "path=\(String(describing: self.path))"
+    return desc
+  }
+
+}
+
+extension FrontsTestExposure : Hashable {
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(variant)
+    hasher.combine(dt)
+    hasher.combine(path)
+  }
+
+}
+
+extension FrontsTestExposure : TStruct {
+
+  public static var fieldIds: [String: Int32] {
+    return ["variant": 1, "dt": 2, "path": 3, ]
+  }
+
+  public static var structName: String { return "FrontsTestExposure" }
+
+  public static func read(from proto: TProtocol) throws -> FrontsTestExposure {
+    _ = try proto.readStructBegin()
+    var variant: String!
+    var dt: Int64!
+    var path: String!
+
+    fields: while true {
+
+      let (_, fieldType, fieldID) = try proto.readFieldBegin()
+
+      switch (fieldID, fieldType) {
+        case (_, .stop):            break fields
+        case (1, .string):           variant = try String.read(from: proto)
+        case (2, .i64):             dt = try Int64.read(from: proto)
+        case (3, .string):           path = try String.read(from: proto)
+        case let (_, unknownType):  try proto.skip(type: unknownType)
+      }
+
+      try proto.readFieldEnd()
+    }
+
+    try proto.readStructEnd()
+    // Required fields
+    try proto.validateValue(variant, named: "variant")
+    try proto.validateValue(dt, named: "dt")
+    try proto.validateValue(path, named: "path")
+
+    return FrontsTestExposure(variant: variant, dt: dt, path: path)
+  }
+
+}
+
+
+
 public func ==(lhs: Referrer, rhs: Referrer) -> Bool {
   return
     (lhs.url == rhs.url) &&
@@ -87,7 +158,8 @@ public func ==(lhs: Referrer, rhs: Referrer) -> Bool {
     (lhs.tagIdFollowed == rhs.tagIdFollowed) &&
     (lhs.appReferral == rhs.appReferral) &&
     (lhs.capiId == rhs.capiId) &&
-    (lhs.frontsTestUUID == rhs.frontsTestUUID)
+    (lhs.frontsTestUUID == rhs.frontsTestUUID) &&
+    (lhs.frontsTestExposure == rhs.frontsTestExposure)
 }
 
 extension Referrer : CustomStringConvertible {
@@ -105,7 +177,8 @@ extension Referrer : CustomStringConvertible {
     desc += "tagIdFollowed=\(String(describing: self.tagIdFollowed)), "
     desc += "appReferral=\(String(describing: self.appReferral)), "
     desc += "capiId=\(String(describing: self.capiId)), "
-    desc += "frontsTestUUID=\(String(describing: self.frontsTestUUID))"
+    desc += "frontsTestUUID=\(String(describing: self.frontsTestUUID)), "
+    desc += "frontsTestExposure=\(String(describing: self.frontsTestExposure))"
     return desc
   }
 
@@ -126,6 +199,7 @@ extension Referrer : Hashable {
     hasher.combine(appReferral)
     hasher.combine(capiId)
     hasher.combine(frontsTestUUID)
+    hasher.combine(frontsTestExposure)
   }
 
 }
@@ -133,7 +207,7 @@ extension Referrer : Hashable {
 extension Referrer : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["url": 1, "component": 4, "linkName": 10, "platform": 5, "viewId": 6, "email": 7, "nativeAppSource": 8, "google": 9, "tagIdFollowed": 11, "appReferral": 12, "capiId": 13, "frontsTestUUID": 14, ]
+    return ["url": 1, "component": 4, "linkName": 10, "platform": 5, "viewId": 6, "email": 7, "nativeAppSource": 8, "google": 9, "tagIdFollowed": 11, "appReferral": 12, "capiId": 13, "frontsTestUUID": 14, "frontsTestExposure": 15, ]
   }
 
   public static var structName: String { return "Referrer" }
@@ -152,6 +226,7 @@ extension Referrer : TStruct {
     var appReferral: AppReferral?
     var capiId: String?
     var frontsTestUUID: String?
+    var frontsTestExposure: FrontsTestExposure?
 
     fields: while true {
 
@@ -171,6 +246,7 @@ extension Referrer : TStruct {
         case (12, .struct):           appReferral = try AppReferral.read(from: proto)
         case (13, .string):           capiId = try String.read(from: proto)
         case (14, .string):           frontsTestUUID = try String.read(from: proto)
+        case (15, .struct):           frontsTestExposure = try FrontsTestExposure.read(from: proto)
         case let (_, unknownType):  try proto.skip(type: unknownType)
       }
 
@@ -179,7 +255,7 @@ extension Referrer : TStruct {
 
     try proto.readStructEnd()
 
-    return Referrer(url: url, component: component, linkName: linkName, platform: platform, viewId: viewId, email: email, nativeAppSource: nativeAppSource, google: google, tagIdFollowed: tagIdFollowed, appReferral: appReferral, capiId: capiId, frontsTestUUID: frontsTestUUID)
+    return Referrer(url: url, component: component, linkName: linkName, platform: platform, viewId: viewId, email: email, nativeAppSource: nativeAppSource, google: google, tagIdFollowed: tagIdFollowed, appReferral: appReferral, capiId: capiId, frontsTestUUID: frontsTestUUID, frontsTestExposure: frontsTestExposure)
   }
 
 }

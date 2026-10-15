@@ -30,6 +30,25 @@ public final class AppReferral {
 
 }
 
+/// The A/B variant shown on a Guardian front, with the front's path.
+/// dt is the browser exposure time in epoch milliseconds.
+public final class FrontsTestExposure {
+
+  public var variant: String
+
+  public var dt: Int64
+
+  public var path: String
+
+
+  public init(variant: String, dt: Int64, path: String) {
+    self.variant = variant
+    self.dt = dt
+    self.path = path
+  }
+
+}
+
 /// Information about the referrer - previous page - that the reader navigated to
 /// this one from.
 public final class Referrer {
@@ -78,9 +97,12 @@ public final class Referrer {
   /// The UUID of the Fronts headline test that was active on the card which referred this page view.
   public var frontsTestUUID: String?
 
+  /// The front exposure from which this article visit originated.
+  public var frontsTestExposure: FrontsTestExposure?
+
 
   public init() { }
-  public init(url: Url?, component: String?, linkName: LinkName?, platform: Platform?, viewId: String?, email: String?, nativeAppSource: Source?, google: GoogleReferral?, tagIdFollowed: String?, appReferral: AppReferral?, capiId: String?, frontsTestUUID: String?) {
+  public init(url: Url?, component: String?, linkName: LinkName?, platform: Platform?, viewId: String?, email: String?, nativeAppSource: Source?, google: GoogleReferral?, tagIdFollowed: String?, appReferral: AppReferral?, capiId: String?, frontsTestUUID: String?, frontsTestExposure: FrontsTestExposure?) {
     self.url = url
     self.component = component
     self.linkName = linkName
@@ -93,6 +115,7 @@ public final class Referrer {
     self.appReferral = appReferral
     self.capiId = capiId
     self.frontsTestUUID = frontsTestUUID
+    self.frontsTestExposure = frontsTestExposure
   }
 
 }
