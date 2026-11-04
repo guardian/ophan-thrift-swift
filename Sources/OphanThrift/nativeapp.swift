@@ -361,12 +361,20 @@ public final class Device {
 
   public var deviceClass: DeviceClass?
 
+  /// The Firebase Cloud Messaging token used to send push notifications to this device.
+  public var fcmToken: String?
+
+  /// The Apple Push Notification service token used to send push notifications to this device.
+  public var apnsToken: String?
+
 
   public init() { }
-  public init(name: String?, manufacturer: String?, deviceClass: DeviceClass?) {
+  public init(name: String?, manufacturer: String?, deviceClass: DeviceClass?, fcmToken: String?, apnsToken: String?) {
     self.name = name
     self.manufacturer = manufacturer
     self.deviceClass = deviceClass
+    self.fcmToken = fcmToken
+    self.apnsToken = apnsToken
   }
 
 }

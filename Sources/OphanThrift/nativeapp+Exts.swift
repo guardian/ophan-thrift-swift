@@ -496,7 +496,9 @@ public func ==(lhs: Device, rhs: Device) -> Bool {
   return
     (lhs.name == rhs.name) &&
     (lhs.manufacturer == rhs.manufacturer) &&
-    (lhs.deviceClass == rhs.deviceClass)
+    (lhs.deviceClass == rhs.deviceClass) &&
+    (lhs.fcmToken == rhs.fcmToken) &&
+    (lhs.apnsToken == rhs.apnsToken)
 }
 
 extension Device : CustomStringConvertible {
@@ -505,7 +507,9 @@ extension Device : CustomStringConvertible {
     var desc = "Device("
     desc += "name=\(String(describing: self.name)), "
     desc += "manufacturer=\(String(describing: self.manufacturer)), "
-    desc += "deviceClass=\(String(describing: self.deviceClass))"
+    desc += "deviceClass=\(String(describing: self.deviceClass)), "
+    desc += "fcmToken=\(String(describing: self.fcmToken)), "
+    desc += "apnsToken=\(String(describing: self.apnsToken))"
     return desc
   }
 
@@ -517,6 +521,8 @@ extension Device : Hashable {
     hasher.combine(name)
     hasher.combine(manufacturer)
     hasher.combine(deviceClass)
+    hasher.combine(fcmToken)
+    hasher.combine(apnsToken)
   }
 
 }
@@ -524,7 +530,7 @@ extension Device : Hashable {
 extension Device : TStruct {
 
   public static var fieldIds: [String: Int32] {
-    return ["name": 1, "manufacturer": 2, "deviceClass": 3, ]
+    return ["name": 1, "manufacturer": 2, "deviceClass": 3, "fcmToken": 4, "apnsToken": 5, ]
   }
 
   public static var structName: String { return "Device" }
@@ -534,6 +540,8 @@ extension Device : TStruct {
     var name: String?
     var manufacturer: String?
     var deviceClass: DeviceClass?
+    var fcmToken: String?
+    var apnsToken: String?
 
     fields: while true {
 
@@ -544,6 +552,8 @@ extension Device : TStruct {
         case (1, .string):           name = try String.read(from: proto)
         case (2, .string):           manufacturer = try String.read(from: proto)
         case (3, .i32):             deviceClass = try DeviceClass.read(from: proto)
+        case (4, .string):           fcmToken = try String.read(from: proto)
+        case (5, .string):           apnsToken = try String.read(from: proto)
         case let (_, unknownType):  try proto.skip(type: unknownType)
       }
 
@@ -552,7 +562,7 @@ extension Device : TStruct {
 
     try proto.readStructEnd()
 
-    return Device(name: name, manufacturer: manufacturer, deviceClass: deviceClass)
+    return Device(name: name, manufacturer: manufacturer, deviceClass: deviceClass, fcmToken: fcmToken, apnsToken: apnsToken)
   }
 
 }
