@@ -125,7 +125,7 @@ public final class ScrollDepth {
   /// Only applicable for fronts
   public var numberOfContainers: Int32?
 
-  /// Number of containers acctually viewed by the user
+  /// Number of containers actually viewed by the user
   /// Only applicable for fronts
   public var numberOfContainersViewed: Int32?
 
@@ -183,7 +183,7 @@ public final class ConsentData {
 public final class Event {
 
   /// Unique id associated with this specific event.
-  /// You must make sure this is globally unqiue: ophan will only process one event per eventId.
+  /// You must make sure this is globally unique: ophan will only process one event per eventId.
   public var eventId: String
 
   /// DEPRECATED - use ageMsLong instead
@@ -195,13 +195,13 @@ public final class Event {
   public var eventType: EventType?
 
   /// Represents the page that has been displayed.
-  /// For content pages, this should the exact content api path with a "/" prefix.
+  /// For content pages, this should be the exact content api path with a "/" prefix.
   /// For other pages, this should be the path of the corresponding web page on theguardian.com.
   /// This is mandatory if eventType is VIEW.
   public var path: String?
 
   /// DEPRECATED - use referrer
-  /// The referring path, i.e. the path representing a page displyed on the app on
+  /// The referring path, i.e. the path representing a page displayed on the app on
   /// which the user clicked a link to arrive at this page.
   public var OBSOLETE_previousPath: String?
 
@@ -384,13 +384,13 @@ public final class Device {
 /// <ol>
 ///   <li>Create the equivalent json and POST the json to https://ophan.theguardian.com/mob with a content type
 ///   of application/json</li>
-///   <li>Create a thift binary blob in compact binary protocol format from
+///   <li>Create a thrift binary blob in compact binary protocol format from
 ///   <a href="https://github.com/guardian/ophan/blob/main/event-model/src/main/thrift/nativeapp.thrift">this definition</a>
 ///   and POST to
-///   https://ophan.theguardian.com/mob a content type of application/vnd.apache.thrift.compact</li>
+///   https://ophan.theguardian.com/mob with a content type of application/vnd.apache.thrift.compact</li>
 /// </ol>
-/// Note that, for largely backwards compatibility reasons, in some cases we allow synonyms for enum values in
-/// json; these are noted in the descriptions below.
+/// Note that, largely for backwards compatibility reasons, in some cases we allow synonyms for enum values in
+/// json: these are noted in the descriptions below.
 public final class NativeAppSubmission {
 
   /// App specific information.
@@ -411,7 +411,7 @@ public final class NativeAppSubmission {
   /// The interaction events contained within this submission.
   public var events: TList<Event>
 
-  /// DEPRECATED - Used to be for the user's Krux identifer.
+  /// DEPRECATED - Used to be for the user's Krux identifier.
   public var OBSOLETE_kruxId: String?
 
   /// If this user is a member, what tier are they currently a part of?
