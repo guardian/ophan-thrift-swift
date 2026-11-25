@@ -184,6 +184,7 @@ public final class Event {
 
   /// Unique id associated with this specific event.
   /// You must make sure this is globally unique: ophan will only process one event per eventId.
+  /// It must not be empty or contain only whitespace.
   public var eventId: String
 
   /// DEPRECATED - use ageMsLong instead
@@ -219,6 +220,7 @@ public final class Event {
   /// The id of this page view. Defaults to the same as event Id which is fine for events of type View.
   /// However, AD_LOAD events must set this to be the same as the viewId of the of the page view on which
   /// this ad is shown.
+  /// If supplied, it must not be empty or contain only whitespace.
   public var viewId: String?
 
   /// Contains benchmark data.
